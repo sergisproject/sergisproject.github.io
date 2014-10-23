@@ -1,5 +1,6 @@
 ---
 layout: sergis
+title: Documentation
 ---
 # Documentation
 

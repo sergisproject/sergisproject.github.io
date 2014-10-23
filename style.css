@@ -1,0 +1,708 @@
+/* Modernist theme by Steve Smith - https://github.com/orderedlist */
+/* Modifications by Jake are noted with a CSS comment beginning with "MOD" (except for vendor prefix fixes) */
+/* Vendor prefixes in this file (in addition to the unprefixed version)
+    border-radius: -webkit, -moz
+    box-shadow: -webkit, -moz
+    transition: -webkit, -moz, -o
+    linear-gradient: -webkit, -moz, -o, -ms
+    calc: -webkit, -moz
+*/
+
+@import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
+
+html {
+    /* MOD: backgrounds moved to body tag; added min-height */
+    min-height: 100%;
+}
+
+body {
+    /* MOD: background */
+    /* NOTE: background is modified for seasonal themes (at bottom of file) */
+    background-color: #434b55;
+    background-attachment: fixed;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #434b55), color-stop(100%, #6c7989));
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -webkit-linear-gradient(#434b55, #6c7989);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -moz-linear-gradient(#434b55, #6c7989);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -o-linear-gradient(#434b55, #6c7989);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -ms-linear-gradient(#434b55, #6c7989);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), linear-gradient(#434b55, #6c7989);
+    padding: 30px 0; /* MOD: padding */
+    margin: 0;
+    font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* MOD: color (used to be #555) */
+    color: #3f3d3d;
+    font-weight: 300;
+}
+
+.wrapper, footer {
+    /* MOD: width */
+    min-width: 640px;
+    max-width: 1100px;
+    width: auto;
+    width: -webkit-calc(100% - 60px);
+    width: -moz-calc(100% - 60px);
+    width: calc(100% - 60px);
+    margin: 0 auto;
+}
+.wrapper {
+    background-color: #dedede;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.45) 0 3px 10px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.45) 0 3px 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.45) 0 3px 10px;
+}
+
+header, section, footer {
+    display: block;
+}
+
+/* MOD: .fakelink support */
+.fakelink {
+    cursor: pointer;
+}
+
+a, .fakelink {
+    color: #069;
+    text-decoration: none;
+    /* MOD: transition to go with hover styles */
+    -webkit-transition: text-shadow 0.1s;
+    -moz-transition: text-shadow 0.1s;
+    -o-transition: text-shadow 0.1s;
+    transition: text-shadow 0.1s;
+}
+
+/* MOD: hover styling */
+a:hover, .fakelink:hover {
+    text-shadow: 0 0 1px rgba(0,102,153,.6);
+}
+
+p {
+    margin: 0 0 20px;
+    padding: 0;
+}
+
+strong {
+    color: #222;
+    font-weight: 700;
+}
+
+header {
+    -webkit-border-radius: 8px 8px 0 0;
+    -moz-border-radius: 8px 8px 0 0;
+    border-radius: 8px 8px 0 0;
+    /* MOD: header background */
+    /* NOTE: Background is modified for seasonal themes (bottom of file) */
+    background-color: #434b55;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6c7989), color-stop(100%, #434b55));
+    background-image: -webkit-linear-gradient(#6c7989, #434b55);
+    background-image: -moz-linear-gradient(#6c7989, #434b55);
+    background-image: -o-linear-gradient(#6c7989, #434b55);
+    background-image: -ms-linear-gradient(#6c7989, #434b55);
+    background-image: linear-gradient(#6c7989, #434b55);
+    position: relative;
+    padding: 15px 20px;
+    /* MOD: border color */
+    border-bottom: 1px solid #3f3d3d;
+}
+/* MOD: hover added */
+header a:hover {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9), 1px 1px 3px rgba(255, 255, 255, 0.2);
+}
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 28px;
+    line-height: 1.2;
+    /* MOD: color and shadow color */
+    color: #fafafa;
+    text-shadow: rgba(0, 0, 0, 0.9) 0 1px 0;
+}
+header.without-description h1 {
+    margin: 10px 0;
+}
+header p {
+    margin: 0;
+    /* MOD: color */
+    color: #fafafa;
+    width: 300px;
+}
+header p.view {
+    display: none;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+/* MOD: color */
+header a {
+    color: #fafafa;
+}
+/* MOD: hover styles (to cancel out from above) */
+header p.view a:hover {
+    text-shadow: inherit;
+}
+header p.view small {
+    font-weight: 400;
+}
+
+/* MOD: header/footer ul stuff */
+header ul {
+    float: right;
+}
+header ul, footer ul, ul.inline {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+header ul li, footer ul li, ul.inline li {
+    display: inline;
+}
+header ul li:before, footer ul li:before, ul.inline li:before {
+    content: "\0020 \00B7 \0020";
+    font-size: inherit;
+}
+header ul li:before {
+    /* MOD: color */
+    color: #fafafa;
+}
+header ul li:first-child:before, footer ul li:first-child:before, ul.inline li:first-child:before {
+    content: none;
+}
+/* MOD: header ul.pretty stuff down at bottom, with all the other @media stuff */
+
+section {
+    padding: 15px 20px;
+    font-size: 15px;
+    border-top: 1px solid #fff;
+    /* MOD: background (==> background-color) */
+    /*
+    background: -webkit-gradient(linear, 50% 0%, 50% 700, color-stop(0%, #fafafa), color-stop(100%, #dedede));
+    background: -webkit-linear-gradient(#fafafa, #dedede 700px);
+    background: -moz-linear-gradient(#fafafa, #dedede 700px);
+    background: -o-linear-gradient(#fafafa, #dedede 700px);
+    background: -ms-linear-gradient(#fafafa, #dedede 700px);
+    background: linear-gradient(#fafafa, #dedede 700px);
+    */
+    background-color: #fafafa;
+    -webkit-border-radius: 0 0 8px 8px;
+    -moz-border-radius: 0 0 8px 8px;
+    border-radius: 0 0 8px 8px;
+    position: relative;
+}
+
+/* MOD: Added section-top-msg */
+div.section-msg {
+    /* Used to display an important message; this div is usually the first child of the section */
+    text-align: center;
+    border-bottom: 1px solid;
+    margin-bottom: 20px;
+    font-size: 88%;
+    font-style: italic;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #222;
+    padding: 0;
+    margin: 0 0 20px;
+    line-height: 1.2;
+}
+
+p, ul, ol, table, pre, dl {
+    margin: 0 0 20px;
+}
+
+h1, h2, h3 {
+    line-height: 1.1;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+h2 {
+    color: #393939;
+}
+
+h3, h4, h5, h6 {
+    color: #494949;
+}
+
+blockquote {
+    margin: 0 -20px 20px;
+    /* MOD: padding */
+    padding: 15px 20px 15px 40px;
+    font-style: italic;
+    background: #ccc;
+    background: rgba(0, 0, 0, 0.06);
+    color: #222;
+}
+
+/* MOD: .cite stuff and basic <figure> stuff added */
+blockquote .cite:before {
+    content: "\2014";
+}
+blockquote .cite {
+    font-size: 90%;
+    margin-left: 20px;
+}
+
+figure {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, .1);
+    margin: 10px;
+    padding: 10px;
+    max-width: -webkit-calc(50% - 40px);
+    max-width: -moz-calc(50% - 40px);
+    max-width: calc(50% - 40px);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    vertical-align: top;
+}
+figure p {
+    margin: 0 0 10px;
+}
+
+img {
+    max-width:100%;
+}
+
+code, pre {
+    font-family: Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
+    color: #333;
+    font-size: 12px;
+}
+
+pre {
+    padding: 20px;
+    background-color: #3A3C42;
+    color: #f8f8f2;
+    margin: 0 -20px 20px;
+    overflow-x:auto;
+}
+pre code {
+    color: #f8f8f2;
+}
+li pre {
+    margin-left: -60px;
+    padding-left: 60px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 5px 10px;
+    border-bottom: 1px solid #aaa;
+}
+
+/* MOD: table.little added */
+table.little, table.little table {
+    margin: 0;
+    width: auto;
+}
+table.little th, table.little td {
+    padding: 1px;
+    border-bottom: none;
+}
+
+dt {
+    color: #222;
+    font-weight: 700;
+}
+
+th {
+    color: #222;
+}
+
+small {
+    font-size: 11px;
+}
+
+hr {
+    border: 0;
+    background-color: #aaa;
+    height: 1px;
+    margin: 0 0 20px;
+}
+
+/* MOD: .timestamp and <article> and <aside> and .bottombar stuff added */
+
+p.timestamp {
+    font-style: italic;
+    float: right;
+}
+article p.timestamp {
+    float: none;
+    margin: 10px;
+    margin-left: 20px;
+}
+article div.postbody {
+    margin-left: 20px;
+}
+
+aside {
+     background-color: #fff;
+     -webkit-border-radius: 12px;
+     -moz-border-radius: 12px;
+     border-radius: 12px;
+     border: 1px solid white;
+     -webkit-box-shadow: 1px 1px 6px #6c7989;
+     -moz-box-shadow: 1px 1px 6px #6c7989;
+     box-shadow: 1px 1px 6px #6c7989;
+     clear: both;
+     display: block;
+     float: right;
+     margin: 0 0 15px 15px;
+     max-width: 27%;
+     padding: 7px 7px 0;
+}
+aside.limitless {
+    max-width: none;
+}
+aside small {
+     font-style: italic;
+     white-space: nowrap;
+}
+aside h3, aside h4, aside h5, aside h6 {
+     text-align: center;
+}
+aside ul {
+     padding-left: 20px;
+}
+aside ul li {
+     font-size: 93%;
+     padding-bottom: 5px;
+}
+aside ul li:last {
+    padding-bottom: 0;
+}
+
+.bottombar {
+    border-top: 1px solid #aaa;
+}
+.bottombar span {
+    float: right;
+}
+.bottombar span:first-child {
+    float: none;
+}
+
+footer {
+    /* MOD: width and margin-{left,right} defined above (with .wrapper) */
+    padding: 0;
+    margin-top: 20px;
+    color: #ccc;
+    overflow: hidden;
+    /* MOD: background, border-radius added */
+    background-color: rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+}
+/* MOD: .fakelink added */
+footer a, footer .fakelink {
+    color: #fff;
+    font-weight: bold;
+}
+/* MOD: hover styles (to cancel out from above) */
+footer a:hover, footer .fakelink:hover {
+    text-shadow: inherit;
+}
+/* MOD: footer */
+footer > p, footer > ul {
+    /* If it's the only thing (or if there's no support for nth-child, etc.), center it */
+    float: none;
+    text-align: center;
+    /* For all of them, change up the margin */
+    margin: 8px 0;
+}
+/* If multiple things, make columns (left, right, left, right, ...) */
+footer > p:not(:only-child):nth-child(2n+1), footer > ul:not(:only-child):nth-child(2n+1) {
+    /* Odd children */
+    clear: both;
+    float: left;
+    text-align: left;
+    padding-left: 10px;
+}
+footer > p:not(:only-child):nth-child(2n), footer > ul:not(:only-child):nth-child(2n) {
+    /* Even children */
+    float: right;
+    text-align: right;
+    padding-right: 10px;
+}
+
+/* MOD: added .buttons stuff */
+div.buttons dt {
+    clear: both;
+}
+
+div.buttons dd > img:first-child {
+    max-height: 3em;
+    float: left;
+}
+
+/* MOD: added header ul.pretty here since we use @media */
+@media print, screen and (min-width:580px) {
+    header ul.pretty {
+        float: none; /* to cancel out from above */
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        position: absolute;
+        z-index: 1;
+        right: 20px;
+        top: 20px;
+        height: 38px;
+        padding: 1px 0;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        /*
+        -webkit-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
+        -moz-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
+        box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
+        */
+        /*width: 240px;*/
+    }
+    header ul.pretty:before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        left: -5px;
+        top: -4px;
+        right: -5px;
+        bottom: -6px;
+        background: rgba(0, 0, 0, 0.1);
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.3) 0 -1px 2px;
+        -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.3) 0 -1px 2px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.3) 0 -1px 2px;
+    }
+    header ul.pretty li {
+        display: block; /* to cancel out from above */
+        width: 78px;
+        float: left;
+        border-left: 1px solid #8BBEF3;
+        border-right: 1px solid #3A7CBE;
+        height: 38px;
+        background-color: #5198DF;
+        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #77b9fb), color-stop(100%, #3782cd));
+        background-image: -webkit-linear-gradient(#77b9fb, #3782cd);
+        background-image: -moz-linear-gradient(#77b9fb, #3782cd);
+        background-image: -o-linear-gradient(#77b9fb, #3782cd);
+        background-image: -ms-linear-gradient(#77b9fb, #3782cd);
+        background-image: linear-gradient(#77b9fb, #3782cd);
+    }
+    header ul.pretty li:first-child {
+        width: 79px;
+        border-left: none;
+        -webkit-border-radius: 5px 0 0 5px;
+        -moz-border-radius: 5px 0 0 5px;
+        border-radius: 5px 0 0 5px;
+    }
+    header ul.pretty li:last-child {
+        width: 79px;
+        border-right: none;
+        -webkit-border-radius: 0 5px 5px 0;
+        -moz-border-radius: 0 5px 5px 0;
+        border-radius: 0 5px 5px 0;
+    }
+    header ul.pretty li:before {
+        content: none; /* to cancel out from above */
+    }
+    header ul.pretty a {
+        line-height: 1;
+        font-size: 11px;
+        color: #fff;
+        color: rgba(255, 255, 255, 0.8);
+        display: block;
+        text-align: center;
+        font-weight: 600;
+        padding-top: 6px;
+        height: 40px;
+        text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0; /* should override text-shadow in a:hover from above */
+    }
+    header ul.pretty a strong {
+        font-size: 14px;
+        display: block;
+        color: #fff;
+        -webkit-font-smoothing: antialiased;
+    }
+    
+    /* MOD: added .buttons stuff */
+    div.buttons {
+        display: inline-block;
+        width: 50%;
+        vertical-align: top;
+    }
+}
+
+@media print, screen and (max-width: 740px) {
+    body {
+        padding: 0;
+    }
+
+    .wrapper {
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        width: 100%;
+        /* MOD: min/max width added */
+        min-width: 0;
+        max-width: none;
+    }
+    
+    /* MOD: header added here */
+    header {
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+    }
+
+    /* MOD: .bottombar added */
+    .bottombar span {
+        float: none;
+    }
+    
+    /* MOD: aside added */
+    aside {
+        float: none;
+        max-width: none;
+    }
+    
+    /* MOD: figure stuff (in accordance with above) */
+    figure {
+        max-width: 100%;
+        max-width: -webkit-calc(100% - 40px);
+        max-width: -moz-calc(100% - 40px);
+        max-width: calc(100% - 40px);
+    }
+
+    footer {
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        padding: 20px;
+        width: auto;
+        /* MOD: min/max width added */
+        min-width: 0;
+        max-width: none;
+    }
+    /* MOD: footer stuff modified in accordance with modifications above */
+    footer p, footer ul,
+    footer > p:not(:only-child):nth-child(2n+1), footer > ul:not(:only-child):nth-child(2n+1),
+    footer > p:not(:only-child):nth-child(2n), footer > ul:not(:only-child):nth-child(2n) {
+        float: none;
+        text-align: center;
+        margin: 0;
+    }
+}
+@media print, screen and (max-width:580px) {
+    /* MOD: aside added */
+    aside {
+        display: none;
+    }
+    
+    /* MOD: header ul stuff modified in accordance with modifications above */
+    header ul {
+        float: none;
+    }
+    header ul li {
+        display: block;
+        /* MOD: bigger font size */
+        font-size: 16px;
+    }
+    header ul li:before {
+        content: none;
+    }
+    header ul.pretty a strong {
+        color: inherit;
+    }
+
+    header p.view {
+        display: block;
+    }
+
+    header p {
+        width: 100%;
+    }
+
+    /* MOD: .noview added */
+    header p.noview {
+        display: none;
+    }
+    
+    /* MOD: Just in case this might be helpful... */
+    .nomobile {
+        display: none;
+    }
+}
+
+/* MOD: print formatting added */
+@media print {
+    html, body, .wrapper, header, section {
+        background-image: none;
+        background-color: transparent;
+    }
+
+    .noprint {
+        display: none;
+    }
+}
+
+/* MOD: seasonal themes */
+body.christmas {
+    background-color: #13722b;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #13722b), color-stop(100%, #084417));
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -webkit-linear-gradient(#13722b, #084417);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -moz-linear-gradient(#13722b, #084417);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -o-linear-gradient(#13722b, #084417);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -ms-linear-gradient(#13722b, #084417);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), linear-gradient(#13722b, #084417);
+}
+
+body.christmas header {
+    background-color: #d34747;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff4b4b), color-stop(100%, #d34747));
+    background-image: -webkit-linear-gradient(#ff4b4b, #d34747);
+    background-image: -moz-linear-gradient(#ff4b4b, #d34747);
+    background-image: -o-linear-gradient(#ff4b4b, #d34747);
+    background-image: -ms-linear-gradient(#ff4b4b, #d34747);
+    background-image: linear-gradient(#ff4b4b, #d34747);
+}
+
+
+body.fall {
+    background-color: #ff935e;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff935e), color-stop(100%, #b75422));
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -webkit-linear-gradient(#ff935e, #b75422);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -moz-linear-gradient(#ff935e, #b75422);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -o-linear-gradient(#ff935e, #b75422);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -ms-linear-gradient(#ff935e, #b75422);
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), linear-gradient(#ff935e, #b75422);
+}
+
+body.fall header {
+    background-color: rgb(183, 84, 34);
+    /* background-image: -webkit-gradient(...screw this one...), ...; */
+    background-image: -webkit-linear-gradient(rgba(108, 121, 137, 0), rgba(183, 84, 34, 0.6), rgba(183, 84, 34, 0.9)), url("/images/leaves.jpg");
+    background-image: -moz-linear-gradient(rgba(108, 121, 137, 0), rgba(183, 84, 34, 0.6), rgba(183, 84, 34, 0.9)), url("/images/leaves.jpg");
+    background-image: -o-linear-gradient(rgba(108, 121, 137, 0), rgba(183, 84, 34, 0.6), rgba(183, 84, 34, 0.9)), url("/images/leaves.jpg");
+    background-image: -ms-linear-gradient(rgba(108, 121, 137, 0), rgba(183, 84, 34, 0.6), rgba(183, 84, 34, 0.9)), url("/images/leaves.jpg");
+    background-image: linear-gradient(rgba(108, 121, 137, 0), rgba(183, 84, 34, 0.6), rgba(183, 84, 34, 0.9)), url("/images/leaves.jpg");
+    background-size: cover;
+}
+
+body.fall header p a, body.fall header ul:not(.pretty) a {
+    /* Boost the font size */
+    font-size: 15px;
+}
