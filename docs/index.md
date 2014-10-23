@@ -4,7 +4,7 @@ title: Documentation
 ---
 # Documentation
 
-<p><img src="server-client.png"></p>
+<p style="text-align: center;"><img src="server-client.png" style="border: 1px solid black; padding: 10px; border-radius: 5px;"></p>
 
 ## SerGIS Object Reference
 
