@@ -19,33 +19,10 @@ An object representing an action to do on the map.
 
 An object representing some sort of content that is part of a question or answer. It must have a `type` property that identifies what type of content it is. The value of the `type` property determines which other properties are present.
 
-**Text Type**
-
-    {
-        type: "text",
-        value: "plain text here"
-    }
-
-**HTML Type**
-
-`{
-    type: "html",
-    value: "<p>HTML content here</p>"
-}`
-
-**Image Type**
-
-    {
-        type: "image",
-        value: "URL of image"
-    }
-
-**YouTube Type**
-
-    {
-        type: "youtube",
-        value: "youtube-video-id-here"
-    }
+ - **Text Type:** `{type: "text", value: "plain text here"}`
+ - **HTML Type:** `{type: "html", value: "<p>HTML content here</p>"}`
+ - **Image Type:** `{type: "image", value: "URL of image"}`
+ - **YouTube Type:** `{type: "youtube", value: "youtube-video-id-here"}`
 
 ### Question Object
 
