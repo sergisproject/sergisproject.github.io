@@ -28,10 +28,10 @@ An object representing some sort of content that is part of a question or answer
 
 **HTML Type**
 
-    {
-        type: "html",
-        value: "<p>HTML content here</p>"
-    }
+`{
+    type: "html",
+    value: "<p>HTML content here</p>"
+}`
 
 **Image Type**
 
