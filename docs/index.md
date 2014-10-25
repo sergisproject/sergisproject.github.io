@@ -15,13 +15,45 @@ An object representing an action to do on the map.
  - `name` (string) The name of the action to perform (corresponding to a function in the `sergis.actions` object, defined in `lib/actions.js`).
  - `data` (array) Any data to pass as parameters to the action function.
 
+### Content Object
+
+An object representing some sort of content that is part of a question or answer. It must have a `type` property that identifies what type of content it is. The value of the `type` property determines which other properties are present.
+
+**Text Type**
+
+    {
+        type: "text",
+        value: "plain text here"
+    }
+
+**HTML Type**
+
+    {
+        type: "html",
+        value: "<p>HTML content here</p>"
+    }
+
+**Image Type**
+
+    {
+        type: "image",
+        value: "URL of image"
+    }
+
+**YouTube Type**
+
+    {
+        type: "youtube",
+        value: "youtube-video-id-here"
+    }
+
 ### Question Object
 
 An object representing a question for the user.
 
  - `title` (string) A text-only title for the question.
- - `content` (string) An HTML description for the question.
- - `answers` (array<string>) A list of the possible answers for the question; each is represented by a string (HTML).
+ - `content` (array&lt;Content&gt;) The content of the question. Each array item must be a Content object.
+ - `answers` (array&lt;Content&gt;) A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.)
 
 ## Backends
 
