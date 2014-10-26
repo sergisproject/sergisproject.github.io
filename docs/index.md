@@ -12,8 +12,10 @@ title: Documentation
 
 An object representing an action to do on the map.
 
- - `name` (string) The name of the action to perform (corresponding to a function in the `sergis.frontend.actions` object; see [Frontends](#frontends) below).
- - `data` (array) Any data to pass as parameters to the action function.
+| Property | Type   | Value
+| -------- | -----  | -----
+| `name`   | string |  The name of the action to perform (corresponding to a function in the `sergis.frontend.actions` object; see [Frontends](#frontends) below).
+| `data`   | array  | Any data to pass as parameters to the action function.
 
 ### Content Object
 
@@ -28,9 +30,11 @@ An object representing some sort of content that is part of a question or answer
 
 An object representing a question for the user.
 
- - `title` (string) A text-only title for the question.
- - `content` (array&lt;Content&gt;) The content of the question. Each array item must be a Content object.
- - `answers` (array&lt;Content&gt;) A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.)
+| Property  | Type   | Value
+| --------  | ----   | -----
+| `title`   | string | A text-only title for the question.
+| `content` | array&lt;[Content](#content-object)&gt; | The content of the question. Each array item must be a Content object.
+| `answers` | array&lt;[Content](#content-object)&gt; | A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.)
 
 ## JS Promises in Frontends and Backends
 
