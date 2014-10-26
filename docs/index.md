@@ -41,6 +41,7 @@ Each frontend is a JavaScript object with the following properties:
 **Any property that is a function should return a *JavaScript Promise* that is resolved with the value in question (or resolved with no data if the function does not return a value) after the function has completed. In the case of an error, the function should reject the promise with a human-readable error message.**
 
  - `init(mapContainer)` (returns Promise): Initialize the map within the DOM element mapContainer.
+ - `centerMap(latitude, longitude)` (returns Promise): Center the map on the given coordinates (provided as numbers).
  - `actions`: The actions that can be taken on the map, represented as an object with the following properties:
      - `buffer(...)` (returns Promise): ...
      - `...(...)` (returns Promise): ...
