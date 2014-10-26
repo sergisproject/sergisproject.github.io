@@ -32,16 +32,20 @@ An object representing a question for the user.
  - `content` (array&lt;Content&gt;) The content of the question. Each array item must be a Content object.
  - `answers` (array&lt;Content&gt;) A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.)
 
+## JS Promises in Frontends and Backends
+
+Any property of a frontend or backend that is a function **must return a *JavaScript Promise* that is resolved with the value in question** (or resolved with no data if the function does not return a value) after the function has completed.
+
+**In the case of an error, the function should reject the promise with a human-readable error message (starting with a capital letter and ending with a period).**
+
 ## Frontends
 
 In SerGIS, a frontend is a JavaScript library for the SerGIS client that handles the rendering of the map and the rendering of Action objects on the map. This is separate to easily allow different mapping APIs and libraries to be used.
 
 Each frontend is a JavaScript object with the following properties:
 
-**Any property that is a function should return a *JavaScript Promise* that is resolved with the value in question (or resolved with no data if the function does not return a value) after the function has completed. In the case of an error, the function should reject the promise with a human-readable error message.**
-
- - `init(mapContainer)` (returns Promise): Initialize the map within the DOM element mapContainer.
- - `centerMap(latitude, longitude)` (returns Promise): Center the map on the given coordinates (provided as numbers).
+ - `init(mapContainer, latitude, longitude, zoom)` (returns Promise): Initialize the map within the DOM element mapContainer, centering it on the given coordinated (provided as numbers) and zoomed to the given zoom value (an integer).
+ - `centerMap(latitude, longitude, zoom)` (returns Promise): Center the map on the given coordinates (provided as numbers) and zoom to the given zoom value (an integer).
  - `actions`: The actions that can be taken on the map, represented as an object with the following properties:
      - `buffer(...)` (returns Promise): ...
      - `...(...)` (returns Promise): ...
@@ -51,8 +55,6 @@ Each frontend is a JavaScript object with the following properties:
 In SerGIS, a backend is a JavaScript library for the SerGIS client that handles the interaction between the server and the client UI. The server that is used through the backend must keep track of the actions that the user has completed so far (and which question the user is on). This is separate from the main SerGIS code to allow the implementation of different backends corresponding to different server-side programs.
 
 Each backend is a JavaScript object with the following properties.
-
-**Any property that is a function should return a *JavaScript Promise* that is resolved with the value in question (or resolved with no data if the function does not return a value). In the case of an error, the function should reject the promise with an error message.**
 
  - `account`: an object with the following properties:
      - `logIn(username, password)` (returns Promise&lt;string&gt;): Attempt to log in with the provided username and password. If successful, it should resolve the promise with the display name.
