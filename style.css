@@ -176,16 +176,6 @@ section {
     position: relative;
 }
 
-/* MOD: Added section-top-msg */
-div.section-msg {
-    /* Used to display an important message; this div is usually the first child of the section */
-    text-align: center;
-    border-bottom: 1px solid;
-    margin-bottom: 20px;
-    font-size: 88%;
-    font-style: italic;
-}
-
 h1, h2, h3, h4, h5, h6 {
     color: #222;
     padding: 0;
@@ -221,15 +211,6 @@ blockquote {
     background: #ccc;
     background: rgba(0, 0, 0, 0.06);
     color: #222;
-}
-
-/* MOD: .cite stuff and basic <figure> stuff added */
-blockquote .cite:before {
-    content: "\2014";
-}
-blockquote .cite {
-    font-size: 90%;
-    margin-left: 20px;
 }
 
 figure {
@@ -283,16 +264,7 @@ th, td {
     text-align: left;
     padding: 5px 10px;
     border-bottom: 1px solid #aaa;
-}
-
-/* MOD: table.little added */
-table.little, table.little table {
-    margin: 0;
-    width: auto;
-}
-table.little th, table.little td {
-    padding: 1px;
-    border-bottom: none;
+    vertical-align: top;
 }
 
 dt {
@@ -313,21 +285,6 @@ hr {
     background-color: #aaa;
     height: 1px;
     margin: 0 0 20px;
-}
-
-/* MOD: .timestamp and <article> and <aside> and .bottombar stuff added */
-
-p.timestamp {
-    font-style: italic;
-    float: right;
-}
-article p.timestamp {
-    float: none;
-    margin: 10px;
-    margin-left: 20px;
-}
-article div.postbody {
-    margin-left: 20px;
 }
 
 aside {
@@ -365,16 +322,6 @@ aside ul li {
 }
 aside ul li:last {
     padding-bottom: 0;
-}
-
-.bottombar {
-    border-top: 1px solid #aaa;
-}
-.bottombar span {
-    float: right;
-}
-.bottombar span:first-child {
-    float: none;
 }
 
 footer {
@@ -419,16 +366,6 @@ footer > p:not(:only-child):nth-child(2n), footer > ul:not(:only-child):nth-chil
     float: right;
     text-align: right;
     padding-right: 10px;
-}
-
-/* MOD: added .buttons stuff */
-div.buttons dt {
-    clear: both;
-}
-
-div.buttons dd > img:first-child {
-    max-height: 3em;
-    float: left;
 }
 
 /* MOD: added header ul.pretty here since we use @media */
@@ -520,13 +457,6 @@ div.buttons dd > img:first-child {
         color: #fff;
         -webkit-font-smoothing: antialiased;
     }
-    
-    /* MOD: added .buttons stuff */
-    div.buttons {
-        display: inline-block;
-        width: 50%;
-        vertical-align: top;
-    }
 }
 
 @media print, screen and (max-width: 740px) {
@@ -552,11 +482,6 @@ div.buttons dd > img:first-child {
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         border-radius: 0;
-    }
-
-    /* MOD: .bottombar added */
-    .bottombar span {
-        float: none;
     }
     
     /* MOD: aside added */
