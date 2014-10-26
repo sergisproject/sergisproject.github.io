@@ -1,6 +1,7 @@
 ---
 layout: sergis
 title: Documentation
+extrastyle: 'td > em { white-space: nowrap; }'
 ---
 # Documentation
 
@@ -49,14 +50,14 @@ In SerGIS, a frontend is a JavaScript library for the SerGIS client that handles
 Each frontend is a JavaScript object. It must be assigned to `sergis.frontend`. This object must have the following functions:
 
 | Function Name | Arguments | Return Value | Description
-| -------- | ---- | ----- | -----
+| ------------- | --------- | ------------ | -----------
 | `init` | `mapContainer` (DOM element), <br> `latitude` (number), <br> `longitude` (number), <br> `zoom` (number) | Promise | Initialize the map within the DOM element mapContainer, centering it on the given coordinated (provided as numbers) and zoomed to the given zoom value (an integer).
 | `centerMap` | `latitude` (number), <br> `longitude` (number), <br> `zoom` (number) | Promise | Center the map on the given coordinates (provided as numbers) and zoom to the given zoom value (an integer).
 
 It must also have a property named `actions`, which is an object with the actions that can be taken on the map. It must have the following functions:
 
 | Function Name | Arguments | Return Value | Description
-| ---- | ---- | ---- | ----
+| ------------- | --------- | ------------ | -----------
 | `buffer` | ... | Promise | ...
 | `...` | ... | Promise | ...
 
@@ -78,8 +79,8 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
 
 | Function Name | Arguments | Return Value | Description
 | ------------- | --------- | ------------ | -----------
-| `isJumpingAllowed` | none | Promise&lt;boolean&gt; | If resolved to `true`, allows the user to skip around different questions. (If false, the user will only be allowed to proceed through questions in a forward, sequential order, without going back after making a choice.)
+| `isJumpingAllowed` | none | Promise&lt;boolean&gt; | If resolved to `true`, allows the user to skip around different questions. (If `false`, the user will only be allowed to proceed through questions in a forward, sequential order, without going back after making a choice.)
 | `getPreviousActions` | none | Promise&lt;array&lt;Action&gt;&gt; | Get a list of all the previous actions (in order, with the most recent last) that the user has chosen up to this point (used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous question).
 | `getQuestionCount` | none | Promise&lt;number&gt; | Get the total number of questions.
-| `getQuestion` | `questionIndex` (number) | Promise&lt;Question&gt; | Go to a question number and returns the Question object representing the question. (Make sure to check on the server if the user has permission to go to this question; even if `allowJumpingAround` is false, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which question the user is on) so the user can resume where he or she left off.
+| `getQuestion` | *`questionIndex` (number)* | Promise&lt;Question&gt; | Go to a question number and returns the Question object representing the question. (Make sure to check on the server if the user has permission to go to this question; even if `allowJumpingAround` is false, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which question the user is on) so the user can resume where he or she left off.
 | `getAction` | `questionIndex` (number), <br> `answerIndex` (number) | Promise&lt;Action&gt; | Get the action for a specific question number and answer number within that question. (The server should store the user's response so it can be retrieved later using `getPreviousActions()`.)
