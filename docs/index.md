@@ -33,8 +33,8 @@ An object representing a question for the user.
 | Property  | Type   | Value
 | --------  | ----   | -----
 | `title`   | string | A text-only title for the question.
-| `content` | array&lt;[Content](#content-object)&gt; | The content of the question. Each array item must be a Content object.
-| `answers` | array&lt;[Content](#content-object)&gt; | A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.)
+| `content` | array&lt;[Content](#content-object "SerGIS Content Object")&gt; | The content of the question. Each array item must be a Content object.
+| `answers` | array&lt;[Content](#content-object "SerGIS Content Object")&gt; | A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.)
 
 ## JS Promises in Frontends and Backends
 
@@ -46,13 +46,19 @@ Any property of a frontend or backend that is a function **must return a *JavaSc
 
 In SerGIS, a frontend is a JavaScript library for the SerGIS client that handles the rendering of the map and the rendering of Action objects on the map. This is separate to easily allow different mapping APIs and libraries to be used.
 
-Each frontend is a JavaScript object with the following properties:
+Each frontend is a JavaScript object. It must be assigned to `sergis.frontend`. This object must have the following functions:
 
- - `init(mapContainer, latitude, longitude, zoom)` (returns Promise): Initialize the map within the DOM element mapContainer, centering it on the given coordinated (provided as numbers) and zoomed to the given zoom value (an integer).
- - `centerMap(latitude, longitude, zoom)` (returns Promise): Center the map on the given coordinates (provided as numbers) and zoom to the given zoom value (an integer).
- - `actions`: The actions that can be taken on the map, represented as an object with the following properties:
-     - `buffer(...)` (returns Promise): ...
-     - `...(...)` (returns Promise): ...
+| Function Name | Arguments | Return Value | Description
+| -------- | ---- | ----- | -----
+| `init` | `mapContainer` (DOM element), <br> `latitude` (number), <br> `longitude` (number), <br> `zoom` (number) | Promise | Initialize the map within the DOM element mapContainer, centering it on the given coordinated (provided as numbers) and zoomed to the given zoom value (an integer).
+| `centerMap` | `latitude` (number), <br> `longitude` (number), <br> `zoom` (number) | Promise | Center the map on the given coordinates (provided as numbers) and zoom to the given zoom value (an integer).
+
+It must also have a property named `actions`, which is an object with the actions that can be taken on the map. It must have the following functions:
+
+| Function Name | Arguments | Return Value | Description
+| ---- | ---- | ---- | ----
+| `buffer` | ... | Promise | ...
+| `...` | ... | Promise | ...
 
 ## Backends
 
