@@ -34,8 +34,8 @@ An object representing a question for the user.
 | Property  | Type   | Value
 | --------  | ----   | -----
 | `title`   | string | A text-only title for the question.
-| `content` | array&lt;[Content](#content-object "SerGIS Content Object")&gt; | The content of the question. Each array item must be a Content object.
-| `answers` | array&lt;[Content](#content-object "SerGIS Content Object")&gt; | A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.)
+| `content` | array&lt;[Content][contentobject]&gt; | The content of the question. Each array item must be a Content object.
+| `answers` | array&lt;[Content][contentobject]&gt; | A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.)
 
 ## JS Promises in Frontends and Backends
 
@@ -80,7 +80,12 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
 | Function Name | Arguments | Return Value | Description
 | ------------- | --------- | ------------ | -----------
 | `isJumpingAllowed` | none | Promise&lt;boolean&gt; | If resolved to `true`, allows the user to skip around different questions. (If `false`, the user will only be allowed to proceed through questions in a forward, sequential order, without going back after making a choice.)
-| `getPreviousActions` | none | Promise&lt;array&lt;Action&gt;&gt; | Get a list of all the previous actions (in order, with the most recent last) that the user has chosen up to this point (used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous question).
+| `getPreviousActions` | none | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get a list of all the previous actions (in order, with the most recent last) that the user has chosen up to this point (used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous question).
 | `getQuestionCount` | none | Promise&lt;number&gt; | Get the total number of questions.
-| `getQuestion` | *`questionIndex` (number)* | Promise&lt;Question&gt; | Go to a question number and returns the Question object representing the question. (Make sure to check on the server if the user has permission to go to this question; even if `allowJumpingAround` is false, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which question the user is on) so the user can resume where he or she left off.
-| `getAction` | *`questionIndex` (number),* *`answerIndex` (number)* | Promise&lt;Action&gt; | Get the action for a specific question number and answer number within that question. (The server should store the user's response so it can be retrieved later using `getPreviousActions()`.)
+| `getQuestion` | *`questionIndex` (number)* | Promise&lt;[Question][questionobject]&gt; | Go to a question number and returns the Question object representing the question. (Make sure to check on the server if the user has permission to go to this question; even if `allowJumpingAround` is false, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which question the user is on) so the user can resume where he or she left off.
+| `getAction` | *`questionIndex` (number),* *`answerIndex` (number)* | Promise&lt;[Action][actionobject]&gt; | Get the action for a specific question number and answer number within that question. (The server should store the user's response so it can be retrieved later using `getPreviousActions()`.)
+
+
+[actionobject]: #action-object "SerGIS Action Object"
+[contentobject]: #content-object "SerGIS Content Object"
+[questionobject]: #question-object "SerGIS Question Object"
