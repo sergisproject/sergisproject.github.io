@@ -64,15 +64,22 @@ It must also have a property named `actions`, which is an object with the action
 
 In SerGIS, a backend is a JavaScript library for the SerGIS client that handles the interaction between the server and the client UI. The server that is used through the backend must keep track of the actions that the user has completed so far (and which question the user is on). This is separate from the main SerGIS code to allow the implementation of different backends corresponding to different server-side programs.
 
-Each backend is a JavaScript object with the following properties.
+Each backend is a JavaScript object. It must be assigned to `sergis.backend`. This object must have 2 properties, `account` and `game`, which hold the functions for the backend.
 
- - `account`: an object with the following properties:
-     - `logIn(username, password)` (returns Promise&lt;string&gt;): Attempt to log in with the provided username and password. If successful, it should resolve the promise with the display name.
-     - `logOut()` (returns Promise): Log the user out.
-     - `getUser()` (returns Promise&lt;string&gt;): Get the user's display name.
- - `game`: an object with the following properties:
-     - `allowJumpingAround`: A boolean that, if true, allows the user to skip around different questions. (If false, the user will only be allowed to proceed through questions in a forward, sequential order, without going back after making a choice.)
-     - `getPreviousActions()` (returns Promise&lt;array&lt;Action&gt;&gt;): Get a list of all the previous actions (in order, with the most recent last) that the user has chosen up to this point (used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous question).
-     - `getQuestionCount()` (returns Promise&lt;number&gt;): Get the total number of questions.
-     - `getQuestion(questionIndex)` (returns Promise&lt;Question&gt;): Go to a question number and returns the Question object representing the question. (Make sure to check on the server if the user has permission to go to this question; even if `allowJumpingAround` is false, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which question the user is on) so the user can resume where he or she left off.
-     - `getAction(questionIndex, answerIndex)`: (returns Promise&lt;Action&gt;) Get the action for a specific question number and answer number within that question. (The server should store the user's response so it can be retrieved later using `getPreviousActions()`.)
+`account` must have the following functions:
+
+| Function Name | Arguments | Return Value | Description
+| ------------- | --------- | ------------ | -----------
+| `logIn` | `username` (string), <br> `password` (string) | Promise&lt;string&gt; | Attempt to log in with the provided username and password. If successful, it should resolve the promise with the display name.
+| `logOut` | none | Promise | Log the user out.
+| `getUser` | none | Promise&lt;string&gt; | Get the user's display name.
+
+`game` must have the following functions:
+
+| Function Name | Arguments | Return Value | Description
+| ------------- | --------- | ------------ | -----------
+| `isJumpingAllowed` | none | Promise&lt;boolean&gt; | If resolved to `true`, allows the user to skip around different questions. (If false, the user will only be allowed to proceed through questions in a forward, sequential order, without going back after making a choice.)
+| `getPreviousActions` | none | Promise&lt;array&lt;Action&gt;&gt; | Get a list of all the previous actions (in order, with the most recent last) that the user has chosen up to this point (used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous question).
+| `getQuestionCount` | none | Promise&lt;number&gt; | Get the total number of questions.
+| `getQuestion` | `questionIndex` (number) | Promise&lt;Question&gt; | Go to a question number and returns the Question object representing the question. (Make sure to check on the server if the user has permission to go to this question; even if `allowJumpingAround` is false, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which question the user is on) so the user can resume where he or she left off.
+| `getAction` | `questionIndex` (number), <br> `answerIndex` (number) | Promise&lt;Action&gt; | Get the action for a specific question number and answer number within that question. (The server should store the user's response so it can be retrieved later using `getPreviousActions()`.)
