@@ -46,21 +46,17 @@ Any property of a frontend or backend that is a function **must return a *JavaSc
 
 Calling a function that returns a promise should look something like this:
 
-```javascript
-getSomething().then(function (value) {
-    // ...
-}).catch(sergis.error);
-```
+    getSomething().then(function (value) {
+        // ...
+    }).catch(sergis.error);
 
 If you want to do something special if the promise is rejected (as opposed to just reporting/alerting it through sergis.error), do something like this:
 
-```javascript
-getSomething().then(function (value) {
-    // ...
-}, function (error) {
-    // ...
-}).catch(sergis.error);
-```
+    getSomething().then(function (value) {
+        // ...
+    }, function (error) {
+        // ...
+    }).catch(sergis.error);
 
 **Never forget the `.catch(sergis.error)` on the end, just in case one of the `then` functions throws an error!**
 
