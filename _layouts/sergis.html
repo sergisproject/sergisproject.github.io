@@ -31,8 +31,10 @@
     <p class="nomobile">A web-based system for "serious" GIS games</p>
   </header>
 {% if page.sidebar %}
+  <input type="checkbox" id="hideSidebar" style="display: none;">
   <div class="sidebar">{% if page.sidebartitle %}
     <h2><a href="#">{{ page.sidebartitle | escape }}</a></h2>{% endif %}
+    <p id="hideSidebarBtn"><label for="hideSidebar" class="fakelink">Hide Sidebar</label></p>
     <ul>{% for item in page.sidebar %}
       <li><a href="{{ item.href | escape }}">{{ item.name | escape }}</a>{% if item.subitems %}
         <ul>{% for subitem in item.subitems %}
@@ -42,7 +44,8 @@
     </ul>
   </div>
 {% endif %}
-  <section>
+  <section>{% if page.sidebar %}
+    <p id="showSidebarBtn"><label for="hideSidebar" class="fakelink">Show Sidebar</label></p>
 {{ content }}
   </section>
 </div>
