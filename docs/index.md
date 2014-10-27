@@ -39,12 +39,12 @@ An object representing an action to do on the map.
 
 ### Content Object
 
-An object representing some sort of content that is part of a question or answer. It must have a `type` property that identifies what type of content it is. The value of the `type` property determines which other properties are present.
+An object representing some sort of content that is part of a question or answer. It must have a `type` property that identifies what type of content it is. The value of the `type` property determines which other properties are present. The main value for the type is stored in `value` (which is required). Some types have other possible properties too, all of which are optional (their default values are shown).
 
  - **Text Type:** `{type: "text", value: "plain text here"}`
  - **HTML Type:** `{type: "html", value: "<p>HTML content here</p>"}`
  - **Image Type:** `{type: "image", value: "URL of image"}`
- - **YouTube Type:** `{type: "youtube", value: "youtube-video-id-here"}`
+ - **YouTube Type:** `{type: "youtube", value: "youtube-video-id-here", width: 400, height: 300, playerVars: {autohide: 1}}`
 
 ### Question Object
 
