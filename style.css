@@ -152,12 +152,12 @@ section {
 }
 
 div.sidebar + section {
-    margin-left: 300px;
+    margin-left: 240px;
 }
 
 div.sidebar {
     position: fixed;
-    width: 280px;
+    width: 220px;
     padding: 10px;
     overflow: auto;
     max-height: -webkit-calc(100% - 135px);
@@ -329,6 +329,7 @@ aside ul li:last {
     }
     div.sidebar {
         position: static;
+        width: auto;
         height: auto;
     }
 }
