@@ -171,8 +171,13 @@ div.sidebar {
     margin-left: 0;
 }
 #showSidebarBtn {
-    text-align: right;
+    text-align: center;
     display: none;
+    position: fixed;
+    margin-left: -80px;
+    background-color: inherit;
+    border-radius: 5px;
+    padding: 3px;
 }
 #hideSidebar:checked + div.sidebar + section #showSidebarBtn {
     display: block;
