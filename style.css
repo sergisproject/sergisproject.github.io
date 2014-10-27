@@ -1,5 +1,6 @@
 /* Modernist theme by Steve Smith - https://github.com/orderedlist */
-/* Modifications by Jake are noted with a CSS comment beginning with "MOD" (except for vendor prefix fixes) */
+/* Modified rather heavily by Jake Hartz */
+
 /* Vendor prefixes in this file (in addition to the unprefixed version)
     border-radius: -webkit, -moz
     box-shadow: -webkit, -moz
@@ -11,12 +12,10 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
 html {
-    /* MOD: backgrounds moved to body tag; added min-height */
     min-height: 100%;
 }
 
 body {
-    /* MOD: background */
     background-color: #434b55;
     background-attachment: fixed;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #434b55), color-stop(100%, #6c7989));
@@ -25,16 +24,14 @@ body {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -o-linear-gradient(#434b55, #6c7989);
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), -ms-linear-gradient(#434b55, #6c7989);
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg=='), linear-gradient(#434b55, #6c7989);
-    padding: 30px 0; /* MOD: padding */
+    padding: 30px 0;
     margin: 0;
     font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    /* MOD: color (used to be #555) */
     color: #3f3d3d;
     font-weight: 300;
 }
 
-.wrapper, footer {
-    /* MOD: width */
+.wrapper {
     min-width: 640px;
     max-width: 1100px;
     width: auto;
@@ -42,8 +39,7 @@ body {
     width: -moz-calc(100% - 60px);
     width: calc(100% - 60px);
     margin: 0 auto;
-}
-.wrapper {
+    
     background-color: #dedede;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
@@ -53,11 +49,10 @@ body {
     box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(0, 0, 0, 0.45) 0 3px 10px;
 }
 
-header, section, footer {
+header, section {
     display: block;
 }
 
-/* MOD: .fakelink support */
 .fakelink {
     cursor: pointer;
 }
@@ -65,14 +60,12 @@ header, section, footer {
 a, .fakelink {
     color: #069;
     text-decoration: none;
-    /* MOD: transition to go with hover styles */
     -webkit-transition: text-shadow 0.1s;
     -moz-transition: text-shadow 0.1s;
     -o-transition: text-shadow 0.1s;
     transition: text-shadow 0.1s;
 }
 
-/* MOD: hover styling */
 a:hover, .fakelink:hover {
     text-shadow: 0 0 1px rgba(0,102,153,.6);
 }
@@ -91,7 +84,6 @@ header {
     -webkit-border-radius: 8px 8px 0 0;
     -moz-border-radius: 8px 8px 0 0;
     border-radius: 8px 8px 0 0;
-    /* MOD: header background */
     background-color: #434b55;
     background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6c7989), color-stop(100%, #434b55));
     background-image: -webkit-linear-gradient(#6c7989, #434b55);
@@ -101,10 +93,8 @@ header {
     background-image: linear-gradient(#6c7989, #434b55);
     position: relative;
     padding: 15px 20px;
-    /* MOD: border color */
     border-bottom: 1px solid #3f3d3d;
 }
-/* MOD: hover added */
 header a:hover {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9), 1px 1px 3px rgba(255, 255, 255, 0.2);
 }
@@ -113,7 +103,6 @@ header h1 {
     padding: 0;
     font-size: 28px;
     line-height: 1.2;
-    /* MOD: color and shadow color */
     color: #fafafa;
     text-shadow: rgba(0, 0, 0, 0.9) 0 1px 0;
 }
@@ -122,53 +111,39 @@ header.without-description h1 {
 }
 header p {
     margin: 0;
-    /* MOD: color */
     color: #fafafa;
     width: 300px;
 }
-/* MOD: color */
 header a {
     color: #fafafa;
 }
 
-/* MOD: header/footer ul stuff */
 header ul {
     float: right;
 }
-header ul, footer ul, ul.inline {
+header ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
-header ul li, footer ul li, ul.inline li {
+header ul li {
     display: inline;
 }
-header ul li:before, footer ul li:before, ul.inline li:before {
+header ul li:before {
     content: "\0020 \00B7 \0020";
     font-size: inherit;
 }
 header ul li:before {
-    /* MOD: color */
     color: #fafafa;
 }
-header ul li:first-child:before, footer ul li:first-child:before, ul.inline li:first-child:before {
+header ul li:first-child:before {
     content: none;
 }
-/* MOD: header ul.pretty stuff down at bottom, with all the other @media stuff */
 
 section {
     padding: 15px 20px;
     font-size: 15px;
     border-top: 1px solid #fff;
-    /* MOD: background (==> background-color) */
-    /*
-    background: -webkit-gradient(linear, 50% 0%, 50% 700, color-stop(0%, #fafafa), color-stop(100%, #dedede));
-    background: -webkit-linear-gradient(#fafafa, #dedede 700px);
-    background: -moz-linear-gradient(#fafafa, #dedede 700px);
-    background: -o-linear-gradient(#fafafa, #dedede 700px);
-    background: -ms-linear-gradient(#fafafa, #dedede 700px);
-    background: linear-gradient(#fafafa, #dedede 700px);
-    */
     background-color: #fafafa;
     -webkit-border-radius: 0 0 8px 8px;
     -moz-border-radius: 0 0 8px 8px;
@@ -179,7 +154,7 @@ section {
 h1, h2, h3, h4, h5, h6 {
     color: #222;
     padding: 0;
-    margin: 0 0 20px;
+    margin: 20px 0;
     line-height: 1.2;
 }
 
@@ -205,29 +180,11 @@ h3, h4, h5, h6 {
 
 blockquote {
     margin: 0 -20px 20px;
-    /* MOD: padding */
     padding: 15px 20px 15px 40px;
     font-style: italic;
     background: #ccc;
     background: rgba(0, 0, 0, 0.06);
     color: #222;
-}
-
-figure {
-    display: inline-block;
-    background-color: rgba(0, 0, 0, .1);
-    margin: 10px;
-    padding: 10px;
-    max-width: -webkit-calc(50% - 40px);
-    max-width: -moz-calc(50% - 40px);
-    max-width: calc(50% - 40px);
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    vertical-align: top;
-}
-figure p {
-    margin: 0 0 10px;
 }
 
 img {
@@ -324,141 +281,6 @@ aside ul li:last {
     padding-bottom: 0;
 }
 
-footer {
-    /* MOD: width and margin-{left,right} defined above (with .wrapper) */
-    padding: 0;
-    margin-top: 20px;
-    color: #ccc;
-    overflow: hidden;
-    /* MOD: background, border-radius added */
-    background-color: rgba(0, 0, 0, 0.3);
-    -webkit-border-radius: 9px;
-    -moz-border-radius: 9px;
-    border-radius: 9px;
-}
-/* MOD: .fakelink added */
-footer a, footer .fakelink {
-    color: #fff;
-    font-weight: bold;
-}
-/* MOD: hover styles (to cancel out from above) */
-footer a:hover, footer .fakelink:hover {
-    text-shadow: inherit;
-}
-/* MOD: footer */
-footer > p, footer > ul {
-    /* If it's the only thing (or if there's no support for nth-child, etc.), center it */
-    float: none;
-    text-align: center;
-    /* For all of them, change up the margin */
-    margin: 8px 0;
-}
-/* If multiple things, make columns (left, right, left, right, ...) */
-footer > p:not(:only-child):nth-child(2n+1), footer > ul:not(:only-child):nth-child(2n+1) {
-    /* Odd children */
-    clear: both;
-    float: left;
-    text-align: left;
-    padding-left: 10px;
-}
-footer > p:not(:only-child):nth-child(2n), footer > ul:not(:only-child):nth-child(2n) {
-    /* Even children */
-    float: right;
-    text-align: right;
-    padding-right: 10px;
-}
-
-/* MOD: added header ul.pretty here since we use @media */
-@media print, screen and (min-width:580px) {
-    header ul.pretty {
-        float: none; /* to cancel out from above */
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        position: absolute;
-        z-index: 1;
-        right: 20px;
-        top: 20px;
-        height: 38px;
-        padding: 1px 0;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        /*
-        -webkit-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
-        -moz-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
-        box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
-        */
-        /*width: 240px;*/
-    }
-    header ul.pretty:before {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        left: -5px;
-        top: -4px;
-        right: -5px;
-        bottom: -6px;
-        background: rgba(0, 0, 0, 0.1);
-        -webkit-border-radius: 8px;
-        -moz-border-radius: 8px;
-        border-radius: 8px;
-        -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.3) 0 -1px 2px;
-        -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.3) 0 -1px 2px;
-        box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.3) 0 -1px 2px;
-    }
-    header ul.pretty li {
-        display: block; /* to cancel out from above */
-        width: 78px;
-        float: left;
-        border-left: 1px solid #8BBEF3;
-        border-right: 1px solid #3A7CBE;
-        height: 38px;
-        background-color: #5198DF;
-        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #77b9fb), color-stop(100%, #3782cd));
-        background-image: -webkit-linear-gradient(#77b9fb, #3782cd);
-        background-image: -moz-linear-gradient(#77b9fb, #3782cd);
-        background-image: -o-linear-gradient(#77b9fb, #3782cd);
-        background-image: -ms-linear-gradient(#77b9fb, #3782cd);
-        background-image: linear-gradient(#77b9fb, #3782cd);
-    }
-    header ul.pretty li:first-child {
-        width: 79px;
-        border-left: none;
-        -webkit-border-radius: 5px 0 0 5px;
-        -moz-border-radius: 5px 0 0 5px;
-        border-radius: 5px 0 0 5px;
-    }
-    header ul.pretty li:last-child {
-        width: 79px;
-        border-right: none;
-        -webkit-border-radius: 0 5px 5px 0;
-        -moz-border-radius: 0 5px 5px 0;
-        border-radius: 0 5px 5px 0;
-    }
-    header ul.pretty li:before {
-        content: none; /* to cancel out from above */
-    }
-    header ul.pretty a {
-        line-height: 1;
-        font-size: 11px;
-        color: #fff;
-        color: rgba(255, 255, 255, 0.8);
-        display: block;
-        text-align: center;
-        font-weight: 600;
-        padding-top: 6px;
-        height: 40px;
-        text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0; /* should override text-shadow in a:hover from above */
-    }
-    header ul.pretty a strong {
-        font-size: 14px;
-        display: block;
-        color: #fff;
-        -webkit-font-smoothing: antialiased;
-    }
-}
-
 @media print, screen and (max-width: 740px) {
     body {
         padding: 0;
@@ -472,84 +294,46 @@ footer > p:not(:only-child):nth-child(2n), footer > ul:not(:only-child):nth-chil
         -moz-box-shadow: none;
         box-shadow: none;
         width: 100%;
-        /* MOD: min/max width added */
         min-width: 0;
         max-width: none;
     }
     
-    /* MOD: header added here */
     header {
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         border-radius: 0;
     }
     
-    /* MOD: aside added */
     aside {
         float: none;
         max-width: none;
     }
-    
-    /* MOD: figure stuff (in accordance with above) */
-    figure {
-        max-width: 100%;
-        max-width: -webkit-calc(100% - 40px);
-        max-width: -moz-calc(100% - 40px);
-        max-width: calc(100% - 40px);
-    }
-
-    footer {
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        border-radius: 0;
-        padding: 20px;
-        width: auto;
-        /* MOD: min/max width added */
-        min-width: 0;
-        max-width: none;
-    }
-    /* MOD: footer stuff modified in accordance with modifications above */
-    footer p, footer ul,
-    footer > p:not(:only-child):nth-child(2n+1), footer > ul:not(:only-child):nth-child(2n+1),
-    footer > p:not(:only-child):nth-child(2n), footer > ul:not(:only-child):nth-child(2n) {
-        float: none;
-        text-align: center;
-        margin: 0;
-    }
 }
 @media print, screen and (max-width:580px) {
-    /* MOD: aside added */
     aside {
         display: none;
     }
     
-    /* MOD: header ul stuff modified in accordance with modifications above */
     header ul {
         float: none;
     }
     header ul li {
         display: block;
-        /* MOD: bigger font size */
         font-size: 16px;
     }
     header ul li:before {
         content: none;
-    }
-    header ul.pretty a strong {
-        color: inherit;
     }
 
     header p {
         width: 100%;
     }
     
-    /* MOD: Just in case this might be helpful... */
     .nomobile {
         display: none;
     }
 }
 
-/* MOD: print formatting added */
 @media print {
     html, body, .wrapper, header, section {
         background-image: none;
