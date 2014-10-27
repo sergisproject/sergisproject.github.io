@@ -55,7 +55,7 @@ An object representing either a question for the user or information to show the
 | `title`   | string | A text-only title for the question or information (usually just the general topic of the question or information).
 | `map`     | object | An object with 3 properties: `latitude` (number), `longitude` (number), `zoom` (number). If any are not provided, or if `map` is not provided, then the previous values are used. **MUST be provided for the first question.**
 | `content` | array&lt;[Content][contentobject]&gt; | The content of the question or information. Each array item must be a Content object.
-| `answers` | array&lt;[Content][contentobject]&gt; | A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.) If not provided, or if the array is empty, a "Continue" button is shown (this may be useful if the "question" just provides information instead of asking a question).
+| `answers` | array&lt;[Content][contentobject]&gt; | A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.) If not provided, or if the array is empty, a "Continue" button is shown if it is not the last question. (This may be useful if the "question" just provides information instead of asking a question.)
 
 ## Promises in Frontends and Backends
 
