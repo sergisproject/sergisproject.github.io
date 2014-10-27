@@ -160,9 +160,9 @@ div.sidebar {
     width: 280px;
     padding: 10px;
     overflow: auto;
-    height: -webkit-calc(100% - 135px);
-    height: -moz-calc(100% - 135px);
-    height: calc(100% - 135px);
+    max-height: -webkit-calc(100% - 135px);
+    max-height: -moz-calc(100% - 135px);
+    max-height: calc(100% - 135px);
     background-color: inherit;
 }
 
@@ -342,6 +342,14 @@ aside ul li:last {
 
     header p {
         width: 100%;
+    }
+    
+    section {
+        margin-left: 0;
+    }
+    div.sidebar {
+        position: static;
+        height: auto;
     }
     
     .nomobile {

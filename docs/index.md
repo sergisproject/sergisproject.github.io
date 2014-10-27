@@ -1,7 +1,10 @@
 ---
 layout: sergis
 title: Documentation
+
 extrastyle: 'td > em { white-space: nowrap; }'
+
+sidebartitle: Table of Contents
 sidebar:
 - name: SerGIS Object Reference
   href: "#sergis-object-reference"
