@@ -323,6 +323,14 @@ aside ul li:last {
         float: none;
         max-width: none;
     }
+    
+    div.sidebar + section {
+        margin-left: 0;
+    }
+    div.sidebar {
+        position: static;
+        height: auto;
+    }
 }
 @media print, screen and (max-width:580px) {
     aside {
@@ -342,14 +350,6 @@ aside ul li:last {
 
     header p {
         width: 100%;
-    }
-    
-    section {
-        margin-left: 0;
-    }
-    div.sidebar {
-        position: static;
-        height: auto;
     }
     
     .nomobile {
