@@ -2,6 +2,22 @@
 layout: sergis
 title: Documentation
 extrastyle: 'td > em { white-space: nowrap; }'
+sidebar:
+- name: SerGIS Object Reference
+  href: "#sergis-object-reference"
+  subitems:
+  - name: Action Object
+    href: "#action-object"
+  - name: Content Object
+    href: "#content-object"
+  - name: Question Object
+    href: "#question-object"
+- name: Promises in Frontends and Backends
+  href: "#promises-in-frontends-and-backends"
+- name: Frontends
+  href: "#frontends"
+- name: Backends
+  href: "#backends"
 ---
 # Documentation
 
@@ -38,7 +54,7 @@ An object representing either a question for the user or information to show the
 | `content` | array&lt;[Content][contentobject]&gt; | The content of the question or information. Each array item must be a Content object.
 | `answers` | array&lt;[Content][contentobject]&gt; | A list of the possible answers for the question. Each item must be a Content object that represents the answer. (NOTE: Unlike the `content` property, only one Content object can be provided for each answer.) If not provided, or if the array is empty, a "Continue" button is shown (this may be useful if the "question" just provides information instead of asking a question).
 
-## JS Promises in Frontends and Backends
+## Promises in Frontends and Backends
 
 Any property of a frontend or backend that is a function **must return a *JavaScript Promise* that is resolved with the value in question** (or resolved with no data if the function does not return a value) after the function has completed.
 
