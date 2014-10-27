@@ -44,6 +44,26 @@ Any property of a frontend or backend that is a function **must return a *JavaSc
 
 **In the case of an error, the function should reject the promise with a human-readable error message (starting with a capital letter and ending with a period).**
 
+Calling a function that returns a promise should look something like this:
+
+```javascript
+getSomething().then(function (value) {
+    // ...
+}).catch(sergis.error);
+```
+
+If you want to do something special if the promise is rejected (as opposed to just reporting/alerting it through sergis.error), do something like this:
+
+```javascript
+getSomething().then(function (value) {
+    // ...
+}, function (error) {
+    // ...
+}).catch(sergis.error);
+```
+
+**Never forget the `.catch(sergis.error)` on the end, just in case one of the `then` functions throws an error!**
+
 ## Frontends
 
 In SerGIS, a frontend is a JavaScript library for the SerGIS client that handles the rendering of the map and the rendering of Action objects on the map. This is separate to easily allow different mapping APIs and libraries to be used.
