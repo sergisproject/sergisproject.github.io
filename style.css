@@ -151,6 +151,21 @@ section {
     position: relative;
 }
 
+div.sidebar + section {
+    margin-left: 300px;
+}
+
+div.sidebar {
+    position: fixed;
+    width: 280px;
+    padding: 10px;
+    overflow: auto;
+    height: -webkit-calc(100% - 135px);
+    height: -moz-calc(100% - 135px);
+    height: calc(100% - 135px);
+    background-color: inherit;
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: #222;
     padding: 0;

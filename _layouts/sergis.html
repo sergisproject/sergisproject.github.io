@@ -30,6 +30,17 @@
     </ul>
     <p>A web-based system for "serious" GIS games</p>
   </header>
+{% if page.sidebar %}
+  <div class="sidebar">
+    <ul>{% for item in page.sidebar %}
+      <li><a href="{{ item.href | escape }}">{{ item.name | escape }}</a>{% if item.subitems %}
+        <ul>{% for subitem in item.subitems %}
+          <li><a href="{{ subitem.href | escape }}">{{ subitem.name | escape }}</a></li>{% endfor %}
+        </ul>
+      {% endif %}</li>{% endfor %}
+    </ul>
+  </div>
+{% endif %}
   <section>
 {{ content }}
   </section>
