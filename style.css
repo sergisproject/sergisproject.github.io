@@ -164,6 +164,7 @@ div.sidebar {
     max-height: calc(100% - 135px);
     background-color: inherit;
 }
+/* The good ol' checkbox-label trick (to avoid JS for showing/hiding sidebar) */
 #hideSidebar:checked + div.sidebar {
     display: none;
 }
