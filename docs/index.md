@@ -9,6 +9,8 @@ sidebar:
 - name: SerGIS Object Reference
   href: "#sergis-object-reference"
   subitems:
+  - name: User Object
+    href: "#user-object"
   - name: Action Object
     href: "#action-object"
   - name: Content Object
@@ -28,6 +30,15 @@ sidebar:
 
 ## SerGIS Object Reference
 
+### User Object
+
+An object representing a SerGIS user.
+
+| Property      | Type   | Value
+| ------------- | ------ | -----
+| `displayName` | string | The display name of the user.
+| `promptIndex` | number | Which prompt the user is on (in the case of a previously started session). If not provided, it is assumed to be the first prompt.
+
 ### Action Object
 
 An object representing an action to do on the map.
@@ -35,7 +46,7 @@ An object representing an action to do on the map.
 | Property | Type   | Value
 | -------- | -----  | -----
 | `name`   | string | The name of the action to perform.
-| `data`   | array  | Any data to pass as parameters to the action function.
+| `data`   | array  | Any data to pass as parameters to the action function. If the action function does not take any parameters, you can leave this out.
 
 The name of the action (`name`) must correspond to a function in the `sergis.frontend.actions` object (see [Frontends](#frontends) below). Additionally, any of these special values may be used:
 
@@ -61,9 +72,9 @@ An object representing either a question for the user or information to show the
 | Property  | Type   | Value
 | --------  | ----   | -----
 | `title`   | string | A text-only title for the prompt (usually just the general topic of the question or information).
-| `map`     | object | An object with 3 properties: `latitude` (number), `longitude` (number), `zoom` (number). If any are not provided, or if `map` is not provided, then the previous values are used. **MUST be provided for the first prompt**, and **must be provided for all prompts if jumping is allowed** (see [Backends](#backends) below).
+| `map`     | object | An object with 3 properties: `latitude` (number), `longitude` (number), `zoom` (number). If any are not provided, or if `map` is not provided, then the previous values are used. **MUST be provided for the first prompt**, and **should be provided for all prompts if jumping is allowed** (see [Backends](#backends) below).
 | `content` | array&lt;[Content][contentobject]&gt; | The content of the prompt. Each array item must be a Content object.
-| `choices` | array&lt;[Content][contentobject]&gt; | A list of the possible choices for the prompt. Each item must be a Content object that represents the choice. (NOTE: Unlike the `content` property, only one Content object can be provided for each choice.) If not provided, or if the array is empty, a "Continue" button is shown if it is not the last prompt. (This may be useful if the prompt just provides information instead of asking a question.)
+| `choices` (optional) | array&lt;[Content][contentobject]&gt; | A list of the possible choices for the prompt. Each item must be a Content object that represents the choice. (NOTE: Unlike the `content` property, only one Content object can be provided for each choice.) If not provided, or if empty, a "Continue" button is shown if it is not the last prompt. (This may be useful if the prompt just provides information instead of asking a question.)
 
 ## Promises in Frontends and Backends
 
@@ -115,21 +126,22 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
 
 | Function Name | Arguments | Return Value | Description
 | ------------- | --------- | ------------ | -----------
-| `logIn` | *`username` (string),* *`password` (string)* | Promise&lt;string&gt; | Attempt to log in with the provided username and password. If successful, it should resolve the promise with the display name.
+| `logIn` | *`username` (string),* *`password` (string)* | Promise&lt;[User][userobject]&gt; | Attempt to log in with the provided username and password. If successful, resolve the promise with a [User object][userobject]; if unsuccessful, reject the promise with an error message.
 | `logOut` | none | Promise | Log the user out.
-| `getUser` | none | Promise&lt;string&gt; | Get the user's display name.
+| `getUser` | none | Promise&lt;[User][userobject]&gt; | Get the logged-in user (reject the promise if nobody is logged in).
 
-`game` must have the following functions:
+`game` must have the following functions (NOTE: none of these will be called until a user is logged in):
 
 | Function Name | Arguments | Return Value | Description
 | ------------- | --------- | ------------ | -----------
-| `isJumpingAllowed` | none | Promise&lt;boolean&gt; | If resolved to `true`, allows the user to skip around between different prompts. (If `false`, the user will only be allowed to proceed through prompts in a forward, sequential order, without going back after making a choice.)
-| `getPreviousActions` | none | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get a list of all the previous actions (in order, with the most recent last) that the user has chosen up to this point (used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous prompt).
+| `isJumpingAllowed` | none | Promise&lt;boolean&gt; | If resolved to `true`, allows the user to skip around between different prompts. If `false`, the user will only be allowed to proceed through prompts in a forward, sequential order, without  skipping ahead or going back after making a choice.
+| `getPreviousActions` | none | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get a list of all the previous actions (in order, with the most recent last) that the user has chosen up to this point. (This is used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous prompt).
 | `getPromptCount` | none | Promise&lt;number&gt; | Get the total number of prompts.
 | `getPrompt` | *`promptIndex` (number)* | Promise&lt;[Prompt][promptobject]&gt; | Go to a prompt number and returns the Prompt object representing the question or information. (Make sure to check on the server if the user has permission to go to this prompt; even if `allowJumpingAround` is false, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which prompt the user is on) so the user can resume where he or she left off. **NOTE: The prompt number (promptIndex) starts at 1, not 0!**
-| `getActions` | *`promptIndex` (number),* *`choiceIndex` (number)* | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get the actions for a specific prompt number and choice index within that prompt. (The server should store the user's response so it can be retrieved later using `getPreviousActions()`.)
+| `getActions` | *`promptIndex` (number),* *`choiceIndex` (number)* | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get the action(s) for a specific choice (choiceIndex) of a prompt (promptIndex). The server should store the user's response so it can be retrieved later using `getPreviousActions()`.
 
 
+[userobject]: #user-object "SerGIS User Object"
 [actionobject]: #action-object "SerGIS Action Object"
 [contentobject]: #content-object "SerGIS Content Object"
 [promptobject]: #prompt-object "SerGIS Prompt Object"
