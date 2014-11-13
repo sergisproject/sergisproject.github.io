@@ -2,7 +2,7 @@
 layout: sergis
 title: JSON Format Documentation
 
-extrastyle: 'td > em { white-space: nowrap; } .indent1 ~ p, .indent1 ~ div, .indent1 ~ table { margin-left: 10px; } .indent2 ~ p, .indent2 ~ div, .indent2 ~ table { margin-left: 20px; }'
+extrastyle: 'td > em { white-space: nowrap; } .hide-bullets-in-following-ul + ul { list-style: none; }'
 
 sidebartitle: Table of Contents
 sidebar:
@@ -83,24 +83,22 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 | `jumpingAllowed` | boolean | Whether the user should be allowed to jump between questions at will. If false, the user can only answer questions in a forward, continuous fashion.
 | `promptList` | array | An array of objects representing the different prompts and choices.
 
-<div class="indent1" style="display: none;"><!-- Everything that follows is indented once --></div>
+<div class="hide-bullets-in-following-ul" style="display: none;"></div>
 
-Each object in the `promptList` array has the following properties:
+- Each object in the `promptList` array has the following properties:
 
-| Property | Type | Value
-| -------- | ---- | -----
-| `prompt` | [Prompt][promptobject] | The SerGIS Prompt object representing the prompt.
-| `actionList` (optional) | array | An array of objects representing different actions. Each item in this array corresponds to a choice in the `prompt.choices` array. If `prompt.choices` is empty or not provided, then this can be empty or not provided. (This is separate from `prompt` so a server can send `prompt` on to the client without revealing which choice is best.)
+  | Property | Type | Value
+  | -------- | ---- | -----
+  | `prompt` | [Prompt][promptobject] | The SerGIS Prompt object representing the prompt.
+  | `actionList` (optional) | array | An array of objects representing different actions. Each item in this array corresponds to a choice in the `prompt.choices` array. If `prompt.choices` is empty or not provided, then this can be empty or not provided. (This is separate from `prompt` so a server can send `prompt` on to the client without revealing which choice is best.)
 
-<div class="indent2" style="display: none;"><!-- Everything that follows is indented twice --></div>
+  - Each object in the `actionList` array has the following properties:
 
-Each object in the `actionList` array has the following properties:
-
-| Property | Type | Value
-| -------- | ---- | -----
-| `actions` | array<[Action][actionobject]> | An array of SerGIS Action objects representing the actions to be taken if this choice is selected. (Actions are evaluated in the order that they appear in this array.) After these actions are taken, the game will advance to the next prompt automatically (unless otherwise instructed).
-| `pointValue` (optional) | number | The amount of points that the user should have added to his score for choosing this choice. If not provided, defaults to `0`.
-| `explanation` (optional) | [Content][contentobject] | A SerGIS Content object that offers an explanation as to why this choice was correct or incorrect.
+    | Property | Type | Value
+    | -------- | ---- | -----
+    | `actions` | array<[Action][actionobject]> | An array of SerGIS Action objects representing the actions to be taken if this choice is selected. (Actions are evaluated in the order that they appear in this array.) After these actions are taken, the game will advance to the next prompt automatically (unless otherwise instructed).
+    | `pointValue` (optional) | number | The amount of points that the user should have added to his score for choosing this choice. If not provided, defaults to `0`.
+    | `explanation` (optional) | [Content][contentobject] | A SerGIS Content object that offers an explanation as to why this choice was correct or incorrect.
 
 
 
