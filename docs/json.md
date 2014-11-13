@@ -17,6 +17,9 @@ sidebar:
     href: "#prompt-object"
 - name: SerGIS JSON Game Data
   href: "#sergis-json-game-data"
+  subitems:
+  - name: Example
+    href: "#example"
 ---
 # SerGIS JSON Format Documentation
 
@@ -101,6 +104,11 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
     | `actions` | array<[Action][actionobject]> | An array of SerGIS Action objects representing the actions to be taken if this choice is selected. (Actions are evaluated in the order that they appear in this array.) After these actions are taken, the game will advance to the next prompt automatically (unless otherwise instructed).
     | `pointValue` (optional) | number | The amount of points that the user should have added to his score for choosing this choice. If not provided, defaults to `0`.
     | `explanation` (optional) | [Content][contentobject] | A SerGIS Content object that offers an explanation as to why this choice was correct or incorrect.
+
+### Example
+
+An example can be seen in the [sergis-client repository](https://github.com/sergisproject/sergis-client), in [the testdata.js file](https://github.com/sergisproject/sergis-client/blob/master/testdata.js).
+
 
 
 
