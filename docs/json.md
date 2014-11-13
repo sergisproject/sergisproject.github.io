@@ -91,6 +91,8 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
   | -------- | ---- | -----
   | `prompt` | [Prompt][promptobject] | The SerGIS Prompt object representing the prompt.
   | `actionList` (optional) | array | An array of objects representing different actions. Each item in this array corresponds to a choice in the `prompt.choices` array. If `prompt.choices` is empty or not provided, then this can be empty or not provided. (This is separate from `prompt` so a server can send `prompt` on to the client without revealing which choice is best.)
+  
+  <div class="hide-bullets-in-following-ul" style="display: none;"></div>
 
   - Each object in the `actionList` array has the following properties:
 
