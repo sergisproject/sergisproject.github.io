@@ -2,7 +2,7 @@
 layout: sergis
 title: JSON Format Documentation
 
-extrastyle: 'td > em { white-space: nowrap; }'
+extrastyle: 'td > em { white-space: nowrap; } .indent1 ~ p, .indent1 ~ div, .indent1 ~ table { margin-left: 10px; } .indent2 ~ p, .indent2 ~ div, .indent2 ~ table { margin-left: 20px; }'
 
 sidebartitle: Table of Contents
 sidebar:
@@ -83,12 +83,16 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 | `jumpingAllowed` | boolean | Whether the user should be allowed to jump between questions at will. If false, the user can only answer questions in a forward, continuous fashion.
 | `promptList` | array | An array of objects representing the different prompts and choices.
 
+<div class="indent1" style="display: none;"><!-- Everything that follows is indented once --></div>
+
 Each object in the `promptList` array has the following properties:
 
 | Property | Type | Value
 | -------- | ---- | -----
 | `prompt` | [Prompt][promptobject] | The SerGIS Prompt object representing the prompt.
 | `actionList` (optional) | array | An array of objects representing different actions. Each item in this array corresponds to a choice in the `prompt.choices` array. If `prompt.choices` is empty or not provided, then this can be empty or not provided. (This is separate from `prompt` so a server can send `prompt` on to the client without revealing which choice is best.)
+
+<div class="indent2" style="display: none;"><!-- Everything that follows is indented twice --></div>
 
 Each object in the `actionList` array has the following properties:
 
