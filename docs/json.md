@@ -58,10 +58,10 @@ It must have a `type` property that identifies what type of content it is. The v
 
 The main value for the type is stored in `value` (which is required). Some types have other possible properties too, all of which are optional (their default values are shown).
 
- - **Text Type:** `{type: "text", value: "plain text here", centered: false}`
- - **HTML Type:** `{type: "html", value: "<p>HTML content here</p>"}`
- - **Image Type:** `{type: "image", value: "URL of image"}`
- - **YouTube Type:** `{type: "youtube", value: "youtube-video-id-here", width: 400, height: 300, playerVars: {autohide: 1}}`
+ - **Text Type:** `{"type": "text", "value": "plain text here", "centered": false}`
+ - **HTML Type:** `{"type": "html", "value": "<p>HTML content here</p>"}`
+ - **Image Type:** `{"type": "image", "value": "URL of image"}`
+ - **YouTube Type:** `{"type": "youtube", "value": "youtube-video-id-here", "width": 400, "height": 300, "playerVars": {"autohide": 1}}`
 
 ### Prompt Object
 
