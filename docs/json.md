@@ -85,7 +85,10 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 
 | Property | Type | Value
 | -------- | ---- | -----
-| `jumpingAllowed` | boolean | Whether the user should be allowed to jump between questions at will. If false, the user can only answer questions in a forward, continuous fashion.
+| `jumpingBackAllowed` (optional) | boolean | Whether the user is allowed to go back to previously answered prompts. (Provided to the client through the `logIn` and `getUser` functions of the [client backend][backends].) Default: `false`
+| `onJumpBack` (optional) | string | Says what should happen regarding prompts (after the one to which the user is jumping back) for which the user already made a choice. One of the following: <ul><li>`"reset"` - disregard all the choices that the user has made on prompts after the one he or she is jumping back to</li><li>`"hide"` - remember the user's choices, but don't show any Map Actions on the map</li><li>Anything else (e.g., an empty string, or just not providing `onJumpBack`) - remember the user's choices and show the corresponding Map Actions on the map</li></ul>
+| `jumpingForwardAllowed` (optional) | boolean | Whether the user is allowed to skip prompts and come back to them later. If this is `true` but `jumpingBackAllowed` is not, then the user will not be able to go back to questions that he or she skips. (Provided to the client through the `logIn` and `getUser` functions of the [client backend][backends].) Default: `false`
+| `showActionsInUserOrder` (optional) | boolean | Whether to render the Map Actions in the order that the user went through the prompts (applies if `jumpingForwardAllowed` and/or `jumpingBackAllowed` are true). If this is false, the actions are rendered in the order of the prompts that they come from, regardless of the order in which the user chose them. Should be utilized by the handler for the `getPreviousMapActions` function of the [client backend][backends]. Default: `false`
 | `promptList` | array | An array of objects representing the different prompts and choices.
 
 <div class="hide-bullets-in-following-ul" style="display: none;"></div>
@@ -112,7 +115,8 @@ An example can be seen in the [sergis-client repository](https://github.com/serg
 
 
 
-
-[actionobject]: #action-object "SerGIS JSON Action Object"
-[contentobject]: #content-object "SerGIS JSON Content Object"
-[promptobject]: #prompt-object "SerGIS JSON Prompt Object"
+[actionobject]: json.html#action-object "SerGIS JSON Action Object"
+[contentobject]: json.html#content-object "SerGIS JSON Content Object"
+[promptobject]: json.html#prompt-object "SerGIS JSON Prompt Object"
+[sergis-json-game-data]: json.html#sergis-json-game-data "SerGIS JSON Game Data"
+[backends]: client.html#backends "SerGIS Client Backends"
