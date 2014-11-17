@@ -76,6 +76,7 @@ A SerGIS JSON Prompt Object is an object representing either a question for the 
 | `map`     | object | An object with 3 properties: `latitude` (number), `longitude` (number), `zoom` (number). If any are not provided, or if `map` is not provided, then the previous values are used. **MUST be provided for the first prompt**, and **should be provided for all prompts if jumping is allowed** (see [Backends](#backends) below).
 | `contents` | array&lt;[Content][contentobject]&gt; | The content of the prompt. Each array item must be a Content object.
 | `choices` (optional) | array&lt;[Content][contentobject]&gt; | A list of the possible choices for the prompt. Each item must be a Content object that represents the choice. (NOTE: Unlike in the `contents` property, only one Content object can be provided for each choice.) If not provided, or if empty, a "Continue" button is shown if it is not the last prompt. (This may be useful if the prompt just provides information instead of asking a question.)
+| `randomizeChoices` (optional) | boolean | Whether to randomize the choices for this prompt.
 
 ## SerGIS JSON Game Data
 
