@@ -33,25 +33,26 @@ These objects are referenced below in the JSON spec.
 
 ### Action Object
 
-A SerGIS JSON Action Object is an object representing an action to do on the map.
+A SerGIS JSON Action Object is an object representing either a "Map Action" (an action to do on the map) or a "Gameplay Action" (an action that affects the gameplay).
 
 | Property | Type   | Value
 | -------- | -----  | -----
 | `name`   | string | The name of the action to perform.
 | `data`   | array  | Any data to pass as parameters to the action function. If the action function does not take any parameters, you can leave this out.
 
-The `name` of the action can be any of these actions:
+**Map Actions:** The `name`s of these actions are:
 
  - `buffer`
  - ...
  - ...
  - ...
 
-There are also 3 "special" actions that do not affect the map, but rather affect the game sequence. They cannot be combined with the "normal" actions listed above. The "special" actions are:
+**Gameplay Actions:** These actions do not affect the map, but rather affect the game sequence. The `name`s of these actions are:
 
- - `goto`: Go to a specific prompt (`data` should have 1 item: the prompt index to go to).
- - `continue`: Move on to the next prompt without performing an action (`data` not required).
- - `logout`: Log the user out (`data` not required).
+ - `explain`: Show an explanation for why the choice that the user chose was correct or incorrect (`data` should be an array of [Content objects][contentobject] holding the explanation to display; in most cases, it will be an array of only one [Content object][contentobject]). If this is provided before any Map Actions, it will be shown to the user before those Map Actions are rendered.
+ - `goto`: Go to a specific prompt (`data` should have 1 item: the prompt index to go to). **Cannot be combined with Map Actions!**
+ - `continue`: Move on to the next prompt without performing an action (`data` not required). **Cannot be combined with Map Actions!**
+ - `logout`: Log the user out (`data` not required). **Cannot be combined with Map Actions!**
 
 ### Content Object
 
@@ -104,7 +105,6 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
     | -------- | ---- | -----
     | `actions` | array<[Action][actionobject]> | An array of SerGIS Action objects representing the actions to be taken if this choice is selected. (Actions are evaluated in the order that they appear in this array.) After these actions are taken, the game will advance to the next prompt automatically (unless otherwise instructed).
     | `pointValue` (optional) | number | The amount of points that the user should have added to his score for choosing this choice. If not provided, defaults to `0`.
-    | `explanation` (optional) | [Content][contentobject] | A SerGIS Content object that offers an explanation as to why this choice was correct or incorrect.
 
 ### Example
 

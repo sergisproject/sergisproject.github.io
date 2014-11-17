@@ -41,7 +41,7 @@ If you want to do something special if the promise is rejected (as opposed to ju
 
 ## Frontends
 
-In SerGIS, a frontend is a JavaScript library for the SerGIS Web Client that handles the rendering of the map and the rendering of [Action objects][actionobject] on the map. This is separate to easily allow different mapping APIs and libraries to be used.
+In SerGIS, a frontend is a JavaScript library for the SerGIS Web Client that handles the rendering of the map and the rendering of Map [Action objects][actionobject] on the map. This is separate to easily allow different mapping APIs and libraries to be used.
 
 Each frontend is a JavaScript object. It must be assigned to `sergis.frontend`. This object must have the following functions:
 
@@ -50,7 +50,7 @@ Each frontend is a JavaScript object. It must be assigned to `sergis.frontend`. 
 | `init` | *`mapContainer` (DOM element),* *`latitude` (number),* *`longitude` (number),* *`zoom` (number)* | Promise | Initialize the map within the DOM element mapContainer, centering it on the given coordinated (provided as numbers) and zoomed to the given zoom value (an integer).
 | `centerMap` | *`latitude` (number),* *`longitude` (number),* *`zoom` (number)* | Promise | Center the map on the given coordinates (provided as numbers) and zoom to the given zoom value (an integer).
 
-It must also have a property named `actions`, which is an object with the actions that can be taken on the map. It must have a function for each action that could be present in an [Action object][actionobject] (not including `goto`, `continue`, and `logout`). The function name corresponds to the action's `name`, and the function's parameters correspond to data passed in the action's `data` array.
+It must also have a property named `actions`, which is an object with the actions that can be taken on the map. It must have a function for each Map Action that could be present in an Map [Action object][actionobject] (not including Gameplay Actions such as `explain`, `goto`, `continue`, and `logout`). The function name corresponds to the action's `name`, and the function's parameters correspond to data passed in the action's `data` array.
 
 ## Backends
 
@@ -80,10 +80,10 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
   | Function Name | Arguments | Return Value | Description
   | ------------- | --------- | ------------ | -----------
   | `isJumpingAllowed` | none | Promise&lt;boolean&gt; | If resolved to `true`, allows the user to skip around between different prompts. If `false`, the user will only be allowed to proceed through prompts in a forward, sequential order, without skipping ahead or going back after making a choice. (See `jumpingAllowed` in the [SerGIS JSON Game Data][sergis-json-game-data] reference).
-  | `getPreviousActions` | none | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get a list of all the previous actions (in order, with the most recent last) that the user has chosen up to this point. (This is used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous prompt.) This array must NEVER include "special" actions (i.e. `continue`, `goto`, or `logout`).
+  | `getPreviousMapActions` | none | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get a list of all the previous Map Actions (in order, with the most recent last) that the user has chosen up to this point. (This is used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous prompt.) This array must NEVER include Gameplay Actions (i.e. `explain`, `goto`, `continue`, or `logout`).
   | `getPromptCount` | none | Promise&lt;number&gt; | Get the total number of prompts.
   | `getPrompt` | *`promptIndex` (number)* | Promise&lt;[Prompt][promptobject]&gt; | Go to a prompt number and returns the Prompt object representing the question or information. (Make sure to check on the server if the user has permission to go to this prompt; even if `allowJumpingAround` is false, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which prompt the user is on) so the user can resume where he or she left off. **NOTE: The prompt number (promptIndex) starts at 1, not 0!**
-  | `getActions` | *`promptIndex` (number),* *`choiceIndex` (number)* | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get the action(s) for a specific choice (choiceIndex) of a prompt (promptIndex). The server should store the user's response so it can be retrieved later using `getPreviousActions()`.
+  | `getActions` | *`promptIndex` (number),* *`choiceIndex` (number)* | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get the action(s) for a specific choice (choiceIndex) of a prompt (promptIndex). The server should store the user's response so it can be retrieved later using `getPreviousMapActions()`.
 
 
 [actionobject]: json.html#action-object "SerGIS JSON Action Object"
