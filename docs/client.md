@@ -56,7 +56,7 @@ It must also have a property named `actions`, which is an object with the action
 
 In SerGIS, a backend is a JavaScript library for the SerGIS Web Client that handles the interaction between the server and the client UI (or the interaction between a [SerGIS JSON Game Data file][sergis-json-game-data] and the client UI).
 
-If a server is used, the server that is used through the backend must keep track of the actions that the user has completed so far (and which prompt the user is on). This is separate from the main SerGIS code to allow the implementation of different backends corresponding to different server-side programs.
+If a server is used, the server that is used through the backend must keep track of the actions that the user has completed so far (and which prompt index the user is on). This is separate from the main SerGIS code to allow the implementation of different backends corresponding to different server-side programs.
 
 Each backend is a JavaScript object. It must be assigned to `sergis.backend`. This object must have 2 properties, `account` and `game`, which hold the functions for the backend.
 
@@ -73,7 +73,7 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
   > | Property      | Type   | Value
   > | ------------- | ------ | -----
   > | `displayName` | string | The display name of the user.
-  > | `promptIndex` | number | Which prompt the user is on (in the case of a previously started session). If not provided, it is assumed to be the first prompt.
+  > | `promptIndex` | number | Which prompt the user is on (in the case of a previously started session). If not provided, it is assumed to be the first prompt (`0`).
   > | `jumpingBackAllowed` | boolean | Whether the user is allowed to go back to previously answered prompts. See `jumpingBackAllowed` in the [SerGIS JSON Game Data][sergis-json-game-data] reference.
   > | `jumpingForwardAllowed` | boolean | Whether the user is allowed to skip prompts and come back to them later. See `jumpingForwardAllowed` in the [SerGIS JSON Game Data][sergis-json-game-data] reference.
 
@@ -81,9 +81,9 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
 
   | Function Name | Arguments | Return Value | Description
   | ------------- | --------- | ------------ | -----------
-  | `getPreviousMapActions` | none | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get a list of all the previous Map Actions (in order, with the most recent last) that the user has chosen up to this point. (This is used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous prompt.) This array must NEVER include Gameplay Actions (i.e. `explain`, `goto`, `continue`, or `logout`). If the backend uses [SerGIS JSON Game Data][sergis-json-game-data], then this should respect `showActionsInUserOrder`.
+  | `getPreviousMapActions` | none | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get a list of all the previous Map Actions (in order, with the most recent last) that the user has chosen up to this point. (This is used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous prompt.) This array must NEVER include Gameplay Actions (i.e. `explain`, `goto`, `continue`, or `logout`). If the backend uses [SerGIS JSON Game Data][sergis-json-game-data], then this should respect `showActionsInUserOrder`. Also, this should NEVER return actions previously chosen by the user for the current prompt.
   | `getPromptCount` | none | Promise&lt;number&gt; | Get the total number of prompts.
-  | `getPrompt` | *`promptIndex` (number)* | Promise&lt;[Prompt][promptobject]&gt; | Go to a prompt number and returns the Prompt object representing the question or information. (Make sure to check on the server if the user has permission to go to this prompt; even if `jumpingBackAllowed` and/or `jumpingForwardAllowed` aren't true, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which prompt the user is on) so the user can resume where he or she left off, and, if the backend uses [SerGIS JSON Game Data][sergis-json-game-data], this should respect `onBackwardJump`. **NOTE: The prompt number (promptIndex) starts at 1, not 0!**
+  | `getPrompt` | *`promptIndex` (number)* | Promise&lt;[Prompt][promptobject]&gt; | Go to a prompt index and returns the Prompt object representing the question or information. (Make sure to check on the server if the user has permission to go to this prompt; even if `jumpingBackAllowed` and/or `jumpingForwardAllowed` aren't true, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which prompt the user is on) so the user can resume where he or she left off, and, if the backend uses [SerGIS JSON Game Data][sergis-json-game-data], this should respect `onBackwardJump`.
   | `getActions` | *`promptIndex` (number),* *`choiceIndex` (number)* | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get the action(s) for a specific choice (choiceIndex) of a prompt (promptIndex). The server should store the user's response so it can be retrieved later using `getPreviousMapActions()`.
 
 
