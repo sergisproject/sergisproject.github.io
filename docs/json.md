@@ -15,6 +15,8 @@ sidebar:
     href: "#content-object"
   - name: Prompt Object
     href: "#prompt-object"
+  - name: Map Object
+    href: "#map-object"
 - name: SerGIS JSON Game Data
   href: "#sergis-json-game-data"
   subitems:
@@ -74,10 +76,21 @@ A SerGIS JSON Prompt Object is an object representing either a question for the 
 | Property  | Type   | Value
 | --------  | ----   | -----
 | `title`   | string | A text-only title for the prompt (usually just the general topic of the question or information).
-| `map`     | object | An object with 3 properties: `latitude` (number), `longitude` (number), `zoom` (number). If any are not provided, or if `map` is not provided, then the previous values are used. **MUST be provided for the first prompt**, and **should be provided for all prompts if jumping is allowed** (see [Backends](#backends) below).
-| `contents` | array&lt;[Content][contentobject]&gt; | The content of the prompt. Each array item must be a Content object.
+| `map` (optional) | [Map][mapobject] | A Map object representing the state of the map for this prompt. If any of `latitude`, `longitude`, or `zoom` are not provided in this object, or if `map` is not provided, then the previous values are used. **MUST be provided for the first prompt**, and **should be provided for all prompts if jumping is allowed** (see [Backends](#backends) below).
+| `contents` | array&lt;[Content][contentobject]&gt; | The content of the prompt. Each array item must be a Content object. The array must have at least one item.
 | `choices` (optional) | array&lt;[Content][contentobject]&gt; | A list of the possible choices for the prompt. Each item must be a Content object that represents the choice. (NOTE: Unlike in the `contents` property, only one Content object can be provided for each choice.) If not provided, or if empty, a "Continue" button is shown if it is not the last prompt. (This may be useful if the prompt just provides information instead of asking a question.)
 | `randomizeChoices` (optional) | boolean | Whether to randomize the choices for this prompt.
+
+### Map Object
+
+A SerGIS JSON Map Object is an object representing a map state, including location (i.e. latitude/longitude) and zoom.
+
+| Property | Type   | Value
+| -------- | ------ | -----
+| `latitude` | number | The latitude position (negative values are north, positive are south).
+| `longitude` | number | The longitude position (negative values are west, positive are east).
+| `zoom` | number | The zoom level of the map.
+| `frontendInfo` | object | An object with frontend-specific map information, where each key is the name of a [frontends][frontends] (corresponding to the frontend's name property) and the value is an object with specific information for that frontend.
 
 ## SerGIS JSON Game Data
 
@@ -115,8 +128,12 @@ An example can be seen in the [sergis-client repository](https://github.com/serg
 
 
 
-[actionobject]: json.html#action-object "SerGIS JSON Action Object"
+[actionobject]:  json.html#action-object  "SerGIS JSON Action Object"
 [contentobject]: json.html#content-object "SerGIS JSON Content Object"
-[promptobject]: json.html#prompt-object "SerGIS JSON Prompt Object"
+[promptobject]:  json.html#prompt-object  "SerGIS JSON Prompt Object"
+[mapobject]:     json.html#map-object     "SerGIS JSON Map Object"
+
 [sergis-json-game-data]: json.html#sergis-json-game-data "SerGIS JSON Game Data"
-[backends]: client.html#backends "SerGIS Client Backends"
+
+[frontends]: client.html#frontends "SerGIS Client Frontends"
+[backends]:  client.html#backends  "SerGIS Client Backends"
