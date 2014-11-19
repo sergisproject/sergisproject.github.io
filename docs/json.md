@@ -39,15 +39,9 @@ A SerGIS JSON Action Object is an object representing either a "Map Action" (an 
 
 | Property | Type   | Value
 | -------- | -----  | -----
-| `name`   | string | The name of the action to perform.
+| `name`   | string | The name of the action to perform. Must be either a Gameplay Action (listed below) or a Map Action.
+| `frontend` | string | If this is a Map Action, this should be the [frontend][frontends] that the Map Action name is in. (MUST be provided if `name` refers to a Map Action; MUST NOT be provided if `name` refers to a Gameplay Action)
 | `data`   | array  | Any data to pass as parameters to the action function. If the action function does not take any parameters, you can leave this out.
-
-**Map Actions:** The `name`s of these actions are:
-
- - `buffer`
- - ...
- - ...
- - ...
 
 **Gameplay Actions:** These actions do not affect the map, but rather affect the game sequence. The `name`s of these actions are:
 
@@ -55,6 +49,31 @@ A SerGIS JSON Action Object is an object representing either a "Map Action" (an 
  - `goto`: Go to a specific prompt (`data` should have 1 item: the prompt index to go to). **Cannot be combined with Map Actions!**
  - `continue`: Move on to the next prompt without performing an action (`data` not required). **Cannot be combined with Map Actions!**
  - `logout`: Log the user out (`data` not required). **Cannot be combined with Map Actions!**
+
+**Map Actions:**
+
+The names of map actions vary by [frontend][frontends]. Therefore, in order to support multiple frontends, you must provide a separate Action object for each frontend.
+
+For example, the following could be a list of actions. Note how Gameplay Actions are only specified once, but Map Actions are each specified multiple times, once for each supported frontend.
+
+    [
+        {
+            "name": "explain",
+            "data": [
+                {"type": "text", "value": "Choice Explanation Here"}
+            ]
+        },
+        {
+            "frontend": "arcgis",
+            "name": "buffer",
+            "data": [120]
+        },
+        {
+            "frontend": "googlemaps",
+            "name": "buffer",
+            "data": [120]
+        }
+    ]
 
 ### Content Object
 
