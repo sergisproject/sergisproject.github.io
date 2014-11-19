@@ -55,10 +55,12 @@ This object must also have the following functions:
 
 | Function Name | Arguments | Return Value | Description
 | ------------- | --------- | ------------ | -----------
-| `init` | *`mapContainer` (DOM element),* *`map` ([Map][mapobject]),* *`initInfo` (object)* | Promise | Initialize the map within the DOM element mapContainer, centering it based on the [SerGIS Map object][mapobject] provided. If `initInfo` is provided, it is an object with values that are specific to the frontend (see each frontend file for more info on what it might expect for `initInfo`).
+| `init` | *`mapContainer` (DOM element),* *`map` ([Map][mapobject])* | Promise&lt;array&gt; | Initialize the map within the DOM element mapContainer, centering it based on the [SerGIS Map object][mapobject] provided. If successful, the Promise should be resolved to an array representing toolbar buttons to show in the toolbox at the top. Each button is represented by a n object with a `label` property (which is a [SerGIS Content object][contentobject]) and an optional `tooltip` property (a string).
+| `reinit` (optional) | *`mapContainer` (DOM element),* *`map` ([Map][mapobject])* | Promise | Re-initialize the map within the DOM element mapContainer, centering it based on the [SerGIS Map object][mapobject] provided. If not provided, then `init` is called if the map has to be re-initialized.
 | `centerMap` | *`map` ([Map][mapobject]),* | Promise | Center the map on the given coordinates (provided as numbers) and zoom to the given zoom value (an integer).
+| `toolbarAction` | *`buttonIndex` (number)* | Promise | Execute the toolbar action for the toolbar button at buttonIndex. (Only ever called if `init` included at least one item in the array that its promise was resolved to. The buttonIndex refers to the index of the toolbar button in this array.)
 
-It must also have a property named `actions`, which is an object with the actions that can be taken on the map. It must have a function for each Map Action that could be present in an Map [Action object][actionobject] (not including Gameplay Actions such as `explain`, `goto`, `continue`, and `logout`). The function name corresponds to the action's `name`, and the function's parameters correspond to data passed in the action's `data` array.
+This object must also have a property named `actions`, which is an object with the actions that can be taken on the map. It must have a function for each Map Action that could be present in an Map [Action object][actionobject] (not including Gameplay Actions such as `explain`, `goto`, `continue`, and `logout`). The function name corresponds to the action's `name`, and the function's parameters correspond to data passed in the action's `data` array.
 
 ## Backends
 
