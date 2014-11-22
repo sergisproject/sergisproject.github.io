@@ -46,8 +46,7 @@ A SerGIS JSON Action Object is an object representing either a "Map Action" (an 
 **Gameplay Actions:** These actions do not affect the map, but rather affect the game sequence. The `name`s of these actions are:
 
  - `explain`: Show an explanation for why the choice that the user chose was correct or incorrect (`data` should be an array of [Content objects][contentobject] holding the explanation to display; in most cases, it will be an array of only one [Content object][contentobject]). If this is provided before any Map Actions, it will be shown to the user before those Map Actions are rendered.
- - `goto`: Go to a specific prompt (`data` should have 1 item: the prompt index to go to). **Cannot be combined with Map Actions!**
- - `continue`: Move on to the next prompt without performing an action (`data` not required). **Cannot be combined with Map Actions!**
+ - `goto`: Go to a specific prompt (`data` should have 1 item: the prompt index to go to). **If combined with Map Actions, it must be the *last* action!**
  - `logout`: Log the user out (`data` not required). **Cannot be combined with Map Actions!**
 
 **Map Actions:**
@@ -138,7 +137,7 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 
     | Property | Type | Value
     | -------- | ---- | -----
-    | `actions` | array<[Action][actionobject]> | An array of SerGIS Action objects representing the actions to be taken if this choice is selected. (Actions are evaluated in the order that they appear in this array.) After these actions are taken, the game will advance to the next prompt automatically (unless otherwise instructed).
+    | `actions` | array<[Action][actionobject]> | An array of SerGIS Action objects representing the actions to be taken if this choice is selected. (Actions are evaluated in the order that they appear in this array.) After these actions are taken, or if no actions are provided (i.e. `actions` is an empty array), the game will advance to the next prompt automatically (unless otherwise instructed).
     | `pointValue` (optional) | number | The amount of points that the user should have added to his score for choosing this choice. If not provided, defaults to `0`.
 
 ### Example
