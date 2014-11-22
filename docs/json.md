@@ -108,7 +108,7 @@ A SerGIS JSON Map Object is an object representing a map state, including locati
 | `latitude` | number | The latitude position (negative values are north, positive are south).
 | `longitude` | number | The longitude position (negative values are west, positive are east).
 | `zoom` | number | The zoom level of the map.
-| `frontendInfo` | object | An object with frontend-specific map information, where each key is the name of a [frontends][frontends] (corresponding to the frontend's name property) and the value is an object with specific information for that frontend.
+| `frontendInfo` | object | An object with frontend-specific map information, where each key is the name of a [frontends][frontends] (corresponding to the frontend's name property) and the value is an object with specific information for that frontend. To find out the values for each frontend, look at the top of the frontend's file for a comment block starting with "SerGIS JSON Map Object - frontendInfo for [frontend name]".
 
 ## SerGIS JSON Game Data
 
