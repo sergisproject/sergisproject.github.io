@@ -96,6 +96,7 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
   | `getPromptCount` | none | Promise&lt;number&gt; | Get the total number of prompts.
   | `getPrompt` | *`promptIndex` (number)* | Promise&lt;[Prompt][promptobject]&gt; | Go to a prompt index and returns the Prompt object representing the question or information. (Make sure to check on the server if the user has permission to go to this prompt; even if `jumpingBackAllowed` and/or `jumpingForwardAllowed` aren't true, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which prompt the user is on) so the user can resume where he or she left off, and, if the backend uses [SerGIS JSON Game Data][sergis-json-game-data], this should respect `onBackwardJump`.
   | `getActions` | *`promptIndex` (number),* *`choiceIndex` (number)* | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get the action(s) for a specific choice (choiceIndex) of a prompt (promptIndex). The server should store the user's response so it can be retrieved later using `getPreviousMapActions()`.
+  | `getGameOverContent` | none | Promise&lt;array&lt;[Content][contentobject]&gt;&gt; | Get the content to display to the user after he or she has answered the last prompt.
 
 
 [actionobject]:  json.html#action-object  "SerGIS JSON Action Object"
