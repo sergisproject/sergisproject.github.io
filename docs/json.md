@@ -137,8 +137,10 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 
     | Property | Type | Value
     | -------- | ---- | -----
-    | `actions` | array<[Action][actionobject]> | An array of SerGIS Action objects representing the actions to be taken if this choice is selected. (Actions are evaluated in the order that they appear in this array.) After these actions are taken, or if no actions are provided (i.e. `actions` is an empty array), the game will advance to the next prompt automatically (unless otherwise instructed).
+    | `actions` (optional) | array<[Action][actionobject]> | An array of SerGIS Action objects representing the actions to be taken if this choice is selected. (Actions are evaluated in the order that they appear in this array.) After these actions are taken, or if no actions are provided (i.e. `actions` is an empty array), the game will advance to the next prompt automatically (unless otherwise instructed).
     | `pointValue` (optional) | number | The amount of points that the user should have added to his score for choosing this choice. If not provided, defaults to `0`.
+    
+    NOTE: If neither of these properties are specified, `actionList` should still contain **an empty object** (`{}`) filling the position.
 
 ### Example
 
