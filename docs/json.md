@@ -80,12 +80,12 @@ A SerGIS JSON Content Object is an object representing some sort of content that
 
 It must have a `type` property that identifies what type of content it is. The value of the `type` property determines which other properties are present.
 
-The main value for the type is stored in `value` (which is required). Some types have other possible properties too, all of which are optional (their default values are shown).
+The main value for the type is stored in `value` (which is required). CSS attributes can be specified by passing them in a string stored in `style` (this should match the formatting of the HTML style attribute). Some types have other possible properties too, all of which are optional (their default values are shown).
 
  - **Text Type:** `{"type": "text", "value": "plain text here", "centered": false}`
  - **HTML Type:** `{"type": "html", "value": "<p>HTML content here</p>"}`
- - **Image Type:** `{"type": "image", "value": "URL of image"}`
- - **YouTube Type:** `{"type": "youtube", "value": "youtube-video-id-here", "width": 400, "height": 300, "playerVars": {"autohide": 1}}`
+ - **Image Type:** `{"type": "image", "value": "URL of image", "centered": true}`
+ - **YouTube Type:** `{"type": "youtube", "value": "youtube-video-id-here", "width": 400, "height": 300, "playerVars": {"autohide": 1}, "centered": true}`
 
 ### Prompt Object
 
