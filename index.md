@@ -8,6 +8,7 @@ The SerGIS Project is an effort to create a system for "serious" games based on 
 ## Parts of the SerGIS Project
 
  - [SerGIS Web Client](https://github.com/sergisproject/sergis-client): The web-based client end of SerGIS, written using HTML and JavaScript
+ - [SerGIS Author](/sergis-author/): The web-based authoring tool for SerGIS JSON Game Data, written using HTML and JavaScript
  - SerGIS Server: The server-side component of SerGIS, for use with the SerGIS Web Client
 
 For development information, see the documentation on the [Docs page](docs/).
