@@ -144,7 +144,7 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 
 ### Example
 
-An example can be seen in the [sergis-client repository](https://github.com/sergisproject/sergis-client), in [the testdata.js file](https://github.com/sergisproject/sergis-client/blob/master/testdata.js).
+An example can be seen in the [sergis-client repository](https://github.com/sergisproject/sergis-client), in [the testdata.json file](https://github.com/sergisproject/sergis-client/blob/master/lib/testdata.json) (or see an [older, commented version](https://github.com/sergisproject/sergis-client/blob/d030e08bfe084f669cd29225a55586ac0aebb5b7/testdata.js)).
 
 
 
