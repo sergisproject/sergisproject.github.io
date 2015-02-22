@@ -1,6 +1,7 @@
 ---
 layout: sergis
 title: JSON Format Documentation
+legacy: 1
 
 extrastyle: 'td > em { white-space: nowrap; } .hide-bullets-in-following-ul + ul { list-style: none; }'
 
@@ -27,7 +28,7 @@ sidebar:
 
 <p style="text-align: center;"><a href="https://docs.google.com/drawings/d/1aDEHLen7vmv6BJ2mfVee2BMB6y3Zp8NhDK-hQRfoTIc/edit?usp=sharing" target="_blank"><img src="server-client.png" style="border: 1px solid black; padding: 10px; border-radius: 5px;"></a></p>
 
-SerGIS has a special JSON format that is used to store its data. This JSON content is not usually directly available on the client-side, but rather it is used on the server-side so the server can push the data to the client as needed (or directly used by the backend if no server-side system is used).
+SerGIS Legacy has a special JSON format that is used to store its data. This JSON content is not usually directly available on the client-side, but rather it is used on the server-side so the server can push the data to the client as needed (or directly used by the backend if no server-side system is used).
 
 ## SerGIS JSON Object Reference
 

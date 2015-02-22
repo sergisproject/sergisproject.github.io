@@ -1,6 +1,7 @@
 ---
 layout: sergis
 title: Client Documentation
+legacy: 1
 
 extrastyle: 'td > em { white-space: nowrap; }'
 
