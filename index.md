@@ -5,10 +5,20 @@ layout: sergis
 
 The SerGIS Project is an effort to create a system for "serious" games based on GIS (Geographical Information Systems). These games can be used in many situations involving maps and decision-making; one common example is disaster situation training.
 
-## Parts of the SerGIS Project
+There are 2 sections of the SerGIS Project: the newer SerGIS Game Engine and the older SerGIS Legacy.
 
- - [SerGIS Web Client](https://github.com/sergisproject/sergis-client): The web-based client end of SerGIS, written using HTML and JavaScript
- - [SerGIS Author](/sergis-author/): The web-based authoring tool for SerGIS JSON Game Data, written using HTML and JavaScript
- - [SerGIS Server](https://github.com/sergisproject/sergis-server): The server-side component of SerGIS, for use with the SerGIS Web Client, written using Node.js
+## SerGIS Game Engine
 
-For development information, see the documentation on the [Docs page](docs/).
+The SerGIS Game Engine is a node.js-based system for developing web-based interactive games. For more about it, see [sergis-game on GitHub](https://github.com/sergisproject/sergis-game).
+
+## SerGIS Legacy
+
+This system is simpler than the SerGIS Game Engine. The structure of games in SerGIS Legacy is much less customizable (for more, see the [Legacy Docs page](legacy-docs/)).
+
+### Parts of SerGIS Legacy
+
+ - [SerGIS Legacy Web Client](https://github.com/sergisproject/sergis-client): The web-based client end of SerGIS Legacy, written using HTML and JavaScript
+ - [SerGIS Legacy Author](/sergis-author/): The web-based authoring tool SerGIS Legacy JSON Game Data, written using HTML and JavaScript
+ - [SerGIS Legacy Server](https://github.com/sergisproject/sergis-server): The server-side (node.js) component of SerGIS Legacy, for use with the SerGIS Legacy Web Client
+
+For development information related to SerGIS Legacy, see the documentation on the [Legacy Docs page](legacy-docs/).
