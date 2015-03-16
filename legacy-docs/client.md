@@ -84,7 +84,8 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
   >
   > | Property      | Type   | Value
   > | ------------- | ------ | -----
-  > | `displayName` | string | The display name of the user.
+  > | `displayName` (optional) | string | The display name of the user. If not provided, the "Logged in as" message and the "Log Out" buttons are not shown.
+  > | `buttons` (optional) | array | Any buttons to show in the top-right corner, represented by an array of objects where each object has the following properties: `label` (string) - the label for the button; `action` (string or function) - the URL (if string) or event handler (if function) to do when the button is clicked
   > | `promptIndex` (optional) | number | Which prompt the user is on (in the case of a previously started session). If not provided, it is assumed to be the first prompt (`0`).
   > | `jumpingBackAllowed` (optional) | boolean | Whether the user is allowed to go back to previously answered prompts. See `jumpingBackAllowed` in the [SerGIS JSON Game Data][sergis-json-game-data] reference.
   > | `jumpingForwardAllowed` (optional) | boolean | Whether the user is allowed to skip prompts and come back to them later. See `jumpingForwardAllowed` in the [SerGIS JSON Game Data][sergis-json-game-data] reference.
