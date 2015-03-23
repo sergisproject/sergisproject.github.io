@@ -1,9 +1,9 @@
 ---
 layout: sergis
-title: Documentation
+title: Developer Documentation
 legacy: 1
 ---
-# Documentation
+# Developer Documentation
 
 Here is an overview of the relationship between the parts of the SerGIS Legacy Web Client and its interaction with the SerGIS Legacy Server and SerGIS Legacy JSON Game Data:
 
@@ -11,3 +11,4 @@ Here is an overview of the relationship between the parts of the SerGIS Legacy W
 
  - [SerGIS Legacy JSON Game Data Format Documentation](json.html)
  - [SerGIS Legacy Web Client Documentation](client.html)
+ - [SerGIS Legacy Prompt Author Documentation](author.html)
