@@ -9,7 +9,7 @@ There are 2 sections of the SerGIS Project: the newer SerGIS Game Engine and the
 
 ## SerGIS Game Engine
 
-The SerGIS Game Engine is a node.js-based system for developing web-based interactive games. For more about it, see [sergis-game on GitHub](https://github.com/sergisproject/sergis-game).
+The SerGIS Game Engine is a node.js-based system for developing web-based interactive games. For development information related to SerGIS Game Engine, see the documentation on the [Game Engine Developer Docs page](docs/).
 
 ## SerGIS Legacy
 
@@ -17,8 +17,8 @@ This system is simpler than the SerGIS Game Engine. The structure of games in Se
 
 ### Parts of SerGIS Legacy
 
- - [SerGIS Legacy Web Client](https://github.com/sergisproject/sergis-client): The web-based client end of SerGIS Legacy, written using HTML and JavaScript
- - [SerGIS Legacy Author](/sergis-author/): The web-based authoring tool SerGIS Legacy JSON Game Data, written using HTML and JavaScript
- - [SerGIS Legacy Server](https://github.com/sergisproject/sergis-server): The server-side (node.js) component of SerGIS Legacy, for use with the SerGIS Legacy Web Client
+ - [SerGIS Legacy Web Client](https://github.com/sergisproject/sergis-legacy-client): The web-based client end of SerGIS Legacy, written using HTML and JavaScript
+ - [SerGIS Legacy Author](/sergis-legacy-author/): The web-based authoring tool SerGIS Legacy JSON Game Data, written using HTML and JavaScript
+ - [SerGIS Legacy Server](https://github.com/sergisproject/sergis-legacy-server): The server-side (node.js) component of SerGIS Legacy, for use with the SerGIS Legacy Web Client
 
 For development information related to SerGIS Legacy, see the documentation on the [Legacy Docs page](legacy-docs/).
