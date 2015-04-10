@@ -140,14 +140,23 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 
 | Property | Type | Value
 | -------- | ---- | -----
-| `layout` (optional) | object | <ul><li>`defaultSidebarWidthRatio` (number) - A number between 0 and 1 indicating the default % of the horizontal screen real estate that should be taken up by the prompt sidebar.</li><li>`disableSidebarResizing` (boolean) - Whether horizontal resizing of the prompt sidebar should be disabled.</li><li>`disableTranslucentSidebar` (boolean) - Whether the translucent prompt sidebar, with the map behind it, should be opaque instead, with the map only extending to its border and not behind it.</li><li>`showCurrentPromptNumber` (boolean) - Whether to show "Prompt __ of __" at the bottom of the prompt sidebar. (If any kind of jumping around is enabled, then this is always shown regardless of this setting.)</li></ul>
+| `layout` (optional) | object | Configuration regarding the layout of the game (see below).
 | `jumpingBackAllowed` (optional) | boolean | Whether the user is allowed to go back to previously answered prompts, allowing the user to change the values that he or she put. (Provided to the client through the `logIn` and `getUser` functions of the [client backend][backends].) Default: `false`
 | `onJumpBack` (optional) | string | Says what should happen regarding prompts (after the one to which the user is jumping back) for which the user already made a choice. One of the following: `"reset"` (disregard all the choices that the user has made on prompts after the one he or she is jumping back to), `"hide"` (remember the user's choices, but don't show any Map Actions on the map), Anything else (e.g., an empty string, or just not providing `onJumpBack`) - remember the user's choices and show the corresponding Map Actions on the map
 | `jumpingForwardAllowed` (optional) | boolean | Whether the user is allowed to skip prompts and come back to them later. If this is `true` but `jumpingBackAllowed` is not, then the user will not be able to go back to questions that he or she skips. (Provided to the client through the `logIn` and `getUser` functions of the [client backend][backends].) Default: `false`
 | `showActionsInUserOrder` (optional) | boolean | Whether to render the Map Actions in the order that the user went through the prompts (applies if `jumpingForwardAllowed` and/or `jumpingBackAllowed` are true). If this is false, the actions are rendered in the order of the prompts that they come from, regardless of the order in which the user chose them. Should be utilized by the handler for the `getPreviousMapActions` function of the [client backend][backends]. Default: `false`
-| `promptList` | array | An array of objects representing the different prompts and choices.
+| `promptList` | array | An array of objects representing the different prompts and choices (see below).
 
 <div class="hide-bullets-in-following-ul" style="display: none;"></div>
+
+- The `layout` object has the following properties:
+
+  | Property | Type | Value
+  | -------- | ---- | -----
+  | `defaultSidebarWidthRatio` | number | A number between 0 and 1 indicating the default % of the horizontal screen real estate that should be taken up by the prompt sidebar. Default: ???
+  | `disableSidebarResizing` | boolean | Whether horizontal resizing of the prompt sidebar should be disabled. Default: `false`
+  | `disableTranslucentSidebar` | boolean | Whether the translucent prompt sidebar, with the map behind it, should be opaque instead, with the map only extending to its border and not behind it. Default: `false`
+  | `showPromptNumber` | boolean | Whether to show "Prompt __ of __" at the bottom of the prompt sidebar. (If any kind of jumping around is enabled, then this is always shown regardless of this setting.) Default: `false`
 
 - Each object in the `promptList` array has the following properties:
 
