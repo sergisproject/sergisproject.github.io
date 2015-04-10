@@ -100,6 +100,7 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
   | `getGameOverContent` | none | Promise&lt;array&lt;[Content][contentobject]&gt;&gt; | Get the content to display to the user after he or she has answered the last prompt.
 
 
+[conditionobject]:  json.html#condition-object  "SerGIS JSON Condition Object"
 [actionobject]:  json.html#action-object  "SerGIS JSON Action Object"
 [contentobject]: json.html#content-object "SerGIS JSON Content Object"
 [promptobject]:  json.html#prompt-object  "SerGIS JSON Prompt Object"

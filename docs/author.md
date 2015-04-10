@@ -38,3 +38,4 @@ The Promises returned by `previewGame` and `publishGame` are resolved with an ob
 | `url` | *string* | The URL to open.
 | `method` | *string* | The HTTP method to use for the request (default: "GET").
 | `data` | *object* | Any URL parameters or POST data to send with the request (default: {}).
+| `enctype` | *string* | The encoding type for any POST data (default: "" if the method is "GET", or "application/x-www-form-urlencoded" otherwise).

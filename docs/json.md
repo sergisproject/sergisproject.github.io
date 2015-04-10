@@ -9,6 +9,8 @@ sidebar:
 - name: SerGIS JSON Object Reference
   href: "#sergis-json-object-reference"
   subitems:
+  - name: Condition Object
+    href: "#condition-object"
   - name: Action Object
     href: "#action-object"
   - name: Content Object
@@ -33,6 +35,26 @@ SerGIS has a special JSON format that is used to store its data. This JSON conte
 
 These objects are referenced below in the JSON spec.
 
+### Condition Object
+
+A SerGIS JSON Condition Object is an object representing a condition that can be resolved to `true` or `false`. It is used in conditional gotos (see [Action Object][actionobject]).
+
+| Property | Type   | Value
+| -------- | ----   | -----
+| `type`   | string | One of the following: `and`, `or`, `varEmpty`, `varEqualTo`, `varGreaterThan`, `varLessThan`
+| `data`   | (varies) | Data that goes along with the condition type.
+
+The following conditions are supported:
+
+| Type | Resolves to true if... | Data Type | Data Description
+| ---- | ---------------------- | --------- | ----------------
+| `and` | All of its children resolve to true. | array&lt;[Condition][conditionobject]&gt; | One or more other Conditions.
+| `or` | At least one of its children resolves to true. | array&lt;[Condition][conditionobject]&gt; | One or more other Conditions.
+| `varEmpty` | The specified variable is unset or equal to `0`. | string | The name of the variable to check.
+| `varEqualTo` | The specified variable is equal to the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
+| `varGreaterThan` | The specified variable is greater than the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
+| `varLessThan` | The specified variable is less than the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
+
 ### Action Object
 
 A SerGIS JSON Action Object is an object representing either a "Map Action" (an action to do on the map) or a "Gameplay Action" (an action that affects the gameplay).
@@ -46,7 +68,9 @@ A SerGIS JSON Action Object is an object representing either a "Map Action" (an 
 **Gameplay Actions:** These actions do not affect the map, but rather affect the game sequence. The `name`s of these actions are:
 
  - `explain`: Show an explanation for why the choice that the user chose was correct or incorrect (`data` should be an array of [Content objects][contentobject] holding the explanation to display; in most cases, it will be an array of only one [Content object][contentobject]). If this is provided before any Map Actions, it will be shown to the user before those Map Actions are rendered.
- - `goto`: Go to a specific prompt (`data` should have 1 item: the prompt index to go to). **If combined with Map Actions, it must be the *last* action!**
+ - `goto`: Go to a specific prompt. **If combined with Map Actions, it must be the *last* action!**
+   - Simple `goto`: `data`'s only item is a number indicating which prompt index to go to.
+   - Conditional `goto`: `data`'s only item is an object whose keys are different prompt indexes and whose values are [Condition objects][conditionobject] representing a condition that must be true to go to that prompt index.
  - `logout`: Log the user out (`data` not required). **Cannot be combined with Map Actions!**
 
 **Map Actions:**
@@ -116,6 +140,7 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 
 | Property | Type | Value
 | -------- | ---- | -----
+| `layout` (optional) | object | <ul><li>`defaultSidebarWidthRatio` (number) - A number between 0 and 1 indicating the default % of the horizontal screen real estate that should be taken up by the prompt sidebar.</li><li>`disableSidebarResizing` (boolean) - Whether horizontal resizing of the prompt sidebar should be disabled.</li><li>`disableTranslucentSidebar` (boolean) - Whether the translucent prompt sidebar, with the map behind it, should be opaque instead, with the map only extending to its border and not behind it.</li><li>`showCurrentPromptNumber` (boolean) - Whether to show "Prompt __ of __" at the bottom of the prompt sidebar. (If any kind of jumping around is enabled, then this is always shown regardless of this setting.)</li></ul>
 | `jumpingBackAllowed` (optional) | boolean | Whether the user is allowed to go back to previously answered prompts, allowing the user to change the values that he or she put. (Provided to the client through the `logIn` and `getUser` functions of the [client backend][backends].) Default: `false`
 | `onJumpBack` (optional) | string | Says what should happen regarding prompts (after the one to which the user is jumping back) for which the user already made a choice. One of the following: `"reset"` (disregard all the choices that the user has made on prompts after the one he or she is jumping back to), `"hide"` (remember the user's choices, but don't show any Map Actions on the map), Anything else (e.g., an empty string, or just not providing `onJumpBack`) - remember the user's choices and show the corresponding Map Actions on the map
 | `jumpingForwardAllowed` (optional) | boolean | Whether the user is allowed to skip prompts and come back to them later. If this is `true` but `jumpingBackAllowed` is not, then the user will not be able to go back to questions that he or she skips. (Provided to the client through the `logIn` and `getUser` functions of the [client backend][backends].) Default: `false`
@@ -148,6 +173,7 @@ An example can be seen in the [sergis-client repository](https://github.com/serg
 
 
 
+[conditionobject]:  json.html#condition-object  "SerGIS JSON Condition Object"
 [actionobject]:  json.html#action-object  "SerGIS JSON Action Object"
 [contentobject]: json.html#content-object "SerGIS JSON Content Object"
 [promptobject]:  json.html#prompt-object  "SerGIS JSON Prompt Object"
