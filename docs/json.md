@@ -1,7 +1,6 @@
 ---
 layout: sergis
 title: JSON Format Documentation
-legacy: 1
 
 extrastyle: 'td > em { white-space: nowrap; } .hide-bullets-in-following-ul + ul { list-style: none; }'
 
@@ -28,7 +27,7 @@ sidebar:
 
 <p style="text-align: center;"><a href="https://docs.google.com/drawings/d/1aDEHLen7vmv6BJ2mfVee2BMB6y3Zp8NhDK-hQRfoTIc/edit?usp=sharing" target="_blank"><img src="server-client.png" style="border: 1px solid black; padding: 10px; border-radius: 5px;"></a></p>
 
-SerGIS Legacy has a special JSON format that is used to store its data. This JSON content is not usually directly available on the client-side, but rather it is used on the server-side so the server can push the data to the client as needed (or directly used by the backend if no server-side system is used).
+SerGIS has a special JSON format that is used to store its data. This JSON content is not usually directly available on the client-side, but rather it is used on the server-side so the server can push the data to the client as needed (or directly used by the backend if no server-side system is used).
 
 ## SerGIS JSON Object Reference
 
@@ -145,7 +144,7 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 
 ### Example
 
-An example can be seen in the [sergis-legacy-client repository](https://github.com/sergisproject/sergis-legacy-client), in [the testdata.json file](https://github.com/sergisproject/sergis-legacy-client/blob/master/lib/testdata.json) (or see an [older, commented version](https://github.com/sergisproject/sergis-legacy-client/blob/d030e08bfe084f669cd29225a55586ac0aebb5b7/testdata.js)).
+An example can be seen in the [sergis-client repository](https://github.com/sergisproject/sergis-client), in [the testdata.json file](https://github.com/sergisproject/sergis-client/blob/master/lib/testdata.json) (or see an [older, commented version](https://github.com/sergisproject/sergis-client/blob/d030e08bfe084f669cd29225a55586ac0aebb5b7/testdata.js)).
 
 
 

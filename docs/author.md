@@ -1,7 +1,6 @@
 ---
 layout: sergis
 title: Author Developer Documentation
-legacy: 1
 
 extrastyle: 'td > em { white-space: nowrap; }'
 
