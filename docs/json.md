@@ -147,8 +147,6 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 | `showActionsInUserOrder` (optional) | boolean | Whether to render the Map Actions in the order that the user went through the prompts (applies if `jumpingForwardAllowed` and/or `jumpingBackAllowed` are true). If this is false, the actions are rendered in the order of the prompts that they come from, regardless of the order in which the user chose them. Should be utilized by the handler for the `getPreviousMapActions` function of the [client backend][backends]. Default: `false`
 | `promptList` | array | An array of objects representing the different prompts and choices (see below).
 
-<div class="hide-bullets-in-following-ul" style="display: none;"></div>
-
 - The `layout` object has the following properties:
 
   | Property | Type | Value
