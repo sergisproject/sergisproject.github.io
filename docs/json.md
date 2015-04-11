@@ -69,7 +69,7 @@ A SerGIS JSON Action Object is an object representing either a "Map Action" (an 
 
 | Action Name | Data Array Description | Description
 | ----------- | ---------------------- | -----------
-| `explain` | [`[Content][contentobject]`, `[Content][contentobject]`, ...] | Show an explanation for why the choice that the user chose was correct or incorrect. The data is an array of [Content objects][contentobject] holding the explanation to display; in most cases, it will be an array of only one [Content object][contentobject]. If this is provided before any Map Actions, it will be shown to the user before those Map Actions are rendered.
+| `explain` | [[`Content`][contentobject], [`Content`][contentobject], ...] | Show an explanation for why the choice that the user chose was correct or incorrect. The data is an array of [Content objects][contentobject] holding the explanation to display; in most cases, it will be an array of only one [Content object][contentobject]. If this is provided before any Map Actions, it will be shown to the user before those Map Actions are rendered.
 | `goto` | [`number|object`] | Go to a specific prompt. **If combined with Map Actions, it must be the *last* action!**
 | | | - Simple `goto`: `data`'s only item is a number indicating which prompt index to go to.
 | | | - Conditional `goto`: `data`'s only item is an object whose keys are different prompt indexes and whose values are [Condition objects][conditionobject] representing a condition that must be true to go to that prompt index.
