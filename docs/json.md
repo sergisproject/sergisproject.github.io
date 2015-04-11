@@ -93,8 +93,8 @@ A SerGIS JSON Collectible Object represents a visual way to show to the user cer
 There are 2 ways of showing collectibles:
 
 1. **Numeric representation:** This is simply a representation that shows the user how many of a collectible they have. **Example:** "Cows: 15"
-2. **Picture representation:** This represents the value of the variable by showing an amount of pictures relative to how much of the collectible the user has. **Example:** <img src="pondGraph1.gif" align="top">
-3. **Bar representation:** This represents the value in a "progress bar" format, or a bar that is filled relatively to how much of the collectible the user has. **Example:** <img src="http://manual.qooxdoo.org/1.3/_images/progressbar.png" align="top">
+2. **Picture representation:** This represents the value of the variable by showing an amount of pictures relative to how much of the collectible the user has. **Example:** <img src="pondGraph1.gif" align="top" height="30">
+3. **Bar representation:** This represents the value in a "progress bar" format, or a bar that is filled relatively to how much of the collectible the user has. **Example:** <img src="http://manual.qooxdoo.org/1.3/_images/progressbar.png" align="top" height="30">
 
 | Property | Type | Value
 | -------- | ---- | -----
