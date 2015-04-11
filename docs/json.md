@@ -67,15 +67,15 @@ A SerGIS JSON Action Object is an object representing either a "Map Action" (an 
 
 **Gameplay Actions:** These actions do not affect the map, but rather affect the game sequence. The `name`s of these actions are:
 
-> | Action Name | Data Array Description | Description
-> | ----------- | ---------------------- | -----------
-> | `explain` | [`[Content][contentobject]`, `[Content][contentobject]`, ...] | Show an explanation for why the choice that the user chose was correct or incorrect. The data is an array of [Content objects][contentobject] holding the explanation to display; in most cases, it will be an array of only one [Content object][contentobject]. If this is provided before any Map Actions, it will be shown to the user before those Map Actions are rendered.
-> | `goto` | [`number|object`] | Go to a specific prompt. **If combined with Map Actions, it must be the *last* action!**
-> | | | - Simple `goto`: `data`'s only item is a number indicating which prompt index to go to.
-> | | | - Conditional `goto`: `data`'s only item is an object whose keys are different prompt indexes and whose values are [Condition objects][conditionobject] representing a condition that must be true to go to that prompt index.
-> | `logout` | (none) | Log the user out. **Cannot be combined with Map Actions!**
-> | `setVariable` | [`string`, `number`] | Set a numeric variable. The first item in the data array is the name of the variable, and the second is its value.
-> | `updateVariable` | [`string`, `number`] | Increment or decrement a numeric variable. The first item in the data array is the name of the variable, and the second is the amount to add (can be negative to subtract). If the variable wasn't previously set, it is assumed to be `0`.
+| Action Name | Data Array Description | Description
+| ----------- | ---------------------- | -----------
+| `explain` | [`[Content][contentobject]`, `[Content][contentobject]`, ...] | Show an explanation for why the choice that the user chose was correct or incorrect. The data is an array of [Content objects][contentobject] holding the explanation to display; in most cases, it will be an array of only one [Content object][contentobject]. If this is provided before any Map Actions, it will be shown to the user before those Map Actions are rendered.
+| `goto` | [`number|object`] | Go to a specific prompt. **If combined with Map Actions, it must be the *last* action!**
+| | | - Simple `goto`: `data`'s only item is a number indicating which prompt index to go to.
+| | | - Conditional `goto`: `data`'s only item is an object whose keys are different prompt indexes and whose values are [Condition objects][conditionobject] representing a condition that must be true to go to that prompt index.
+| `logout` | (none) | Log the user out. **Cannot be combined with Map Actions!**
+| `setVariable` | [`string`, `number`] | Set a numeric variable. The first item in the data array is the name of the variable, and the second is its value.
+| `updateVariable` | [`string`, `number`] | Increment or decrement a numeric variable. The first item in the data array is the name of the variable, and the second is the amount to add (can be negative to subtract). If the variable wasn't previously set, it is assumed to be `0`.
 
 **Map Actions:**
 
