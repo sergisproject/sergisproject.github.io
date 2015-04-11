@@ -107,13 +107,15 @@ There are 2 forms of the [`goto` action][actionobject]. One simply specified the
 Any other actions, including other Gameplay Actions or any Map Actions, can be passed to the client as-is, and the client will process them.
 
 
-[conditionobject]:  json.html#condition-object  "SerGIS JSON Condition Object"
-[actionobject]:  json.html#action-object  "SerGIS JSON Action Object"
-[contentobject]: json.html#content-object "SerGIS JSON Content Object"
-[promptobject]:  json.html#prompt-object  "SerGIS JSON Prompt Object"
-[mapobject]:     json.html#map-object     "SerGIS JSON Map Object"
+[actionobject]:      json.html#action-object      "SerGIS JSON Action Object"
+[conditionobject]:   json.html#condition-object   "SerGIS JSON Condition Object"
+[collectibleobject]: json.html#collectible-object "SerGIS JSON Collectible Object"
+[contentobject]:     json.html#content-object     "SerGIS JSON Content Object"
+[mapobject]:         json.html#map-object         "SerGIS JSON Map Object"
+[promptobject]:      json.html#prompt-object      "SerGIS JSON Prompt Object"
 
 [sergis-json-game-data]: json.html#sergis-json-game-data "SerGIS JSON Game Data"
+[state-variables]:       json.html#state-variables       "SerGIS JSON State Variables"
 
 [frontends]: client.html#frontends "SerGIS Client Frontends"
 [backends]:  client.html#backends  "SerGIS Client Backends"

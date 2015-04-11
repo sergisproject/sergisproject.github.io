@@ -9,19 +9,23 @@ sidebar:
 - name: SerGIS JSON Object Reference
   href: "#sergis-json-object-reference"
   subitems:
-  - name: Condition Object
-    href: "#condition-object"
   - name: Action Object
     href: "#action-object"
+  - name: Condition Object
+    href: "#condition-object"
+  - name: Collectible Object
+    href: "#collectible-object"
   - name: Content Object
     href: "#content-object"
-  - name: Prompt Object
-    href: "#prompt-object"
   - name: Map Object
     href: "#map-object"
+  - name: Prompt Object
+    href: "#prompt-object"
 - name: SerGIS JSON Game Data
   href: "#sergis-json-game-data"
   subitems:
+  - name: State Variables
+    href: "#state-variables"
   - name: Example
     href: "#example"
 ---
@@ -34,26 +38,6 @@ SerGIS has a special JSON format that is used to store its data. This JSON conte
 ## SerGIS JSON Object Reference
 
 These objects are referenced below in the JSON spec.
-
-### Condition Object
-
-A SerGIS JSON Condition Object is an object representing a condition that can be resolved to `true` or `false`. It is used in conditional gotos (see [Action Object][actionobject]).
-
-| Property | Type   | Value
-| -------- | ----   | -----
-| `type`   | string | One of the following: `and`, `or`, `varEmpty`, `varEqualTo`, `varGreaterThan`, `varLessThan`
-| `data`   | (varies) | Data that goes along with the condition type.
-
-The following conditions are supported:
-
-| Type | Resolves to true if... | Data Type | Data Description
-| ---- | ---------------------- | --------- | ----------------
-| `and` | All of its children resolve to true. | array&lt;[Condition][conditionobject]&gt; | One or more other Conditions.
-| `or` | At least one of its children resolves to true. | array&lt;[Condition][conditionobject]&gt; | One or more other Conditions.
-| `varEmpty` | The specified variable is unset or equal to `0`. | string | The name of the variable to check.
-| `varEqualTo` | The specified variable is equal to the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
-| `varGreaterThan` | The specified variable is greater than the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
-| `varLessThan` | The specified variable is less than the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
 
 ### Action Object
 
@@ -102,6 +86,45 @@ For example, the following could be a list of actions. Note how Gameplay Actions
         }
     ]
 
+### Collectible Object
+
+A SerGIS JSON Collectible Object represents a visual way to show to the user certain collectibles. These are shown in a special status bar in the interface. Each collectible uses a state variable behind the scenes to store and manipulate how many of the collectible there are. (For more on creating and modifying state variables, see [State Variables][state-variables].)
+
+There are 2 ways of showing collectibles:
+
+1. **Numeric representation:** This is simply a representation that shows the user how many of a collectible they have. **Example:** "Cows: 15"
+2. **Picture representation:** This represents the value of the variable by showing an amount of pictures relative to how much of the collectible the user has. **Example:** <img src="pondGraph1.gif" align="top">
+3. **Bar representation:** This represents the value in a "progress bar" format, or a bar that is filled relatively to how much of the collectible the user has. **Example:** <img src="http://manual.qooxdoo.org/1.3/_images/progressbar.png" align="top">
+
+| Property | Type | Value
+| -------- | ---- | -----
+| `type` | string | One of the following: "numeric", "picture", "bar"
+| `variable` | string | The name of the [State Variable][state-variables] to use as the value for the Collectible.
+| `label` | string | A label for the collectible.
+| `image` (optional) | string | **If type is "picture":** The URL of the image to use as the pictures.
+| `interval` (optional) | number | **If type is "picture":** This is the amount that each picture is worth (for example, if this is 5 and the value of the variable is 15, then 3 pictures will be shown). Default: 1
+| `total` (optional) | number | **If type is "bar":** This is the largest value that the variable could be (so, if the value of the variable is equal to this value, then the entire bar will be full). Default: 100
+
+### Condition Object
+
+A SerGIS JSON Condition Object is an object representing a condition that can be resolved to `true` or `false`. It is used in conditional gotos (see [Action Object][actionobject]).
+
+| Property | Type   | Value
+| -------- | ----   | -----
+| `type`   | string | One of the following: `and`, `or`, `varEmpty`, `varEqualTo`, `varGreaterThan`, `varLessThan`
+| `data`   | (varies) | Data that goes along with the condition type.
+
+The following conditions are supported:
+
+| Type | Resolves to true if... | Data Type | Data Description
+| ---- | ---------------------- | --------- | ----------------
+| `and` | All of its children resolve to true. | array&lt;[Condition][conditionobject]&gt; | One or more other Conditions.
+| `or` | At least one of its children resolves to true. | array&lt;[Condition][conditionobject]&gt; | One or more other Conditions.
+| `varEmpty` | The specified variable is unset or equal to `0`. | string | The name of the variable to check.
+| `varEqualTo` | The specified variable is equal to the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
+| `varGreaterThan` | The specified variable is greater than the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
+| `varLessThan` | The specified variable is less than the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
+
 ### Content Object
 
 A SerGIS JSON Content Object is an object representing some sort of content that is part of a prompt or choice.
@@ -115,6 +138,17 @@ The main value for the type is stored in `value` (which is required). CSS attrib
  - **Image Type:** `{"type": "image", "value": "URL of image", "centered": true}`
  - **YouTube Type:** `{"type": "youtube", "value": "youtube-video-id-here", "width": 400, "height": 300, "playerVars": {"autohide": 1}, "centered": true}`
 
+### Map Object
+
+A SerGIS JSON Map Object is an object representing a map state, including location (i.e. latitude/longitude) and zoom.
+
+| Property | Type   | Value
+| -------- | ------ | -----
+| `latitude` | number | The latitude position (negative values are north, positive are south).
+| `longitude` | number | The longitude position (negative values are west, positive are east).
+| `zoom` | number | The zoom level of the map.
+| `frontendInfo` | object | An object with frontend-specific map information, where each key is the name of a [frontends][frontends] (corresponding to the frontend's name property) and the value is an object with specific information for that frontend. To find out the values for each frontend, look at the top of the frontend's file for a comment block starting with "SerGIS JSON Map Object - frontendInfo for [frontend name]".
+
 ### Prompt Object
 
 A SerGIS JSON Prompt Object is an object representing either a question for the user or information to show the user.
@@ -127,6 +161,7 @@ A SerGIS JSON Prompt Object is an object representing either a question for the 
 | `choices` (optional) | array&lt;[Content][contentobject]&gt; | A list of the possible choices for the prompt. Each item must be a Content object that represents the choice. (NOTE: Unlike in the `contents` property, only one Content object can be provided for each choice.) If not provided, or if empty, a "Continue" button is shown if it is not the last prompt. (This may be useful if the prompt just provides information instead of asking a question.)
 | `randomizeChoices` (optional) | boolean | Whether to randomize the choices for this prompt.
 | `buttons` (optional) | object | Frontend-specific toolbar buttons to show/hide/enable/disable. This should be an object whose keys are frontend names and whose values are another object. This object should then have keys matching button IDs and values being another object with `hidden` or `disabled` properties (to change the state of the button with that ID).
+| `collectiblesShown` (optional) | array&lt;string&gt; | An array of strings representing IDs of [Collectibles][collectibleobject] to visually show state variables to the user during this prompt. The collectibles are defined in the `collectibles` object in the root of the [SerGIS JSON Game Data][sergis-json-game-data].
 
 Example value for `buttons`:
 
@@ -145,17 +180,6 @@ Example value for `buttons`:
         }
     }
 
-### Map Object
-
-A SerGIS JSON Map Object is an object representing a map state, including location (i.e. latitude/longitude) and zoom.
-
-| Property | Type   | Value
-| -------- | ------ | -----
-| `latitude` | number | The latitude position (negative values are north, positive are south).
-| `longitude` | number | The longitude position (negative values are west, positive are east).
-| `zoom` | number | The zoom level of the map.
-| `frontendInfo` | object | An object with frontend-specific map information, where each key is the name of a [frontends][frontends] (corresponding to the frontend's name property) and the value is an object with specific information for that frontend. To find out the values for each frontend, look at the top of the frontend's file for a comment block starting with "SerGIS JSON Map Object - frontendInfo for [frontend name]".
-
 ## SerGIS JSON Game Data
 
 SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data consists of an object with the following properties:
@@ -167,6 +191,7 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 | `onJumpBack` (optional) | string | Says what should happen regarding prompts (after the one to which the user is jumping back) for which the user already made a choice. One of the following: `"reset"` (disregard all the choices that the user has made on prompts after the one he or she is jumping back to), `"hide"` (remember the user's choices, but don't show any Map Actions on the map), Anything else (e.g., an empty string, or just not providing `onJumpBack`) - remember the user's choices and show the corresponding Map Actions on the map
 | `jumpingForwardAllowed` (optional) | boolean | Whether the user is allowed to skip prompts and come back to them later. If this is `true` but `jumpingBackAllowed` is not, then the user will not be able to go back to questions that he or she skips. (Provided to the client through the `logIn` and `getUser` functions of the [client backend][backends].) Default: `false`
 | `showActionsInUserOrder` (optional) | boolean | Whether to render the Map Actions in the order that the user went through the prompts (applies if `jumpingForwardAllowed` and/or `jumpingBackAllowed` are true). If this is false, the actions are rendered in the order of the prompts that they come from, regardless of the order in which the user chose them. Should be utilized by the handler for the `getPreviousMapActions` function of the [client backend][backends]. Default: `false`
+| `collectibles` (optional) | object&lt;string, [Collectible][collectibleobject]&gt; | Any [Collectibles][collectibleobject] used during the game to show the user the value of a [State Variable][state-variable]. Each key in the object is an ID for the collectible, and the value is the corresponding [Collectible][collectibleobject]. All Collectibles are hidden by default, but individual prompts can show them by setting their `collectiblesShown` object.
 | `promptList` | array | An array of objects representing the different prompts and choices (see below).
 
 - The `layout` object has the following properties:
@@ -183,7 +208,7 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
   | Property | Type | Value
   | -------- | ---- | -----
   | `prompt` | [Prompt][promptobject] | The SerGIS Prompt object representing the prompt.
-  | `actionList` (optional) | array | An array of objects representing different actions. Each item in this array corresponds to a choice in the `prompt.choices` array. If `prompt.choices` is empty or not provided, then this can be empty or not provided. (This is separate from `prompt` so a server can send `prompt` on to the client without revealing which choice is best.)
+  | `actionList` (optional) | array | An array of objects representing different actions. Each item in this array corresponds to a choice in the `prompt.choices` array. If `prompt.choices` is empty or not provided, then this can be empty or not provided. (This is separate from `prompt` so a server can send `prompt` on to the client without revealing the consequences of each choice.)
   
   <div class="hide-bullets-in-following-ul" style="display: none;"></div>
 
@@ -202,7 +227,9 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 
 SerGIS includes a simple way of giving a user a score via the `pointValue`s that can be set for each action (which are then added up at the end to give the user his or her final score), but sometimes something more powerful is needed. State variables fill this place. They are numeric variables that persist with the user's session as the user plays the game.
 
-When a user makes a choice, state variables can be set, incremented, or decremented as a result of that choice (see `setVariables` and `updateVariables` in the table above this). Then, the values of these variables can be used later in [conditional gotos][actionobject] (which allow the next prompt to be chosen conditionally; see [Action object][actionobject] above). Also, if the game creator chooses, certain variables can be shown to the user (for example, to show the state of certain collectibles that they might have). (TODO: Last bit not yet implemented...)
+When a user makes a choice, state variables can be set, incremented, or decremented as a result of that choice (see `setVariables` and `updateVariables` in the table above this). Then, the values of these variables can be used later in [conditional gotos][actionobject] (which allow the next prompt to be chosen conditionally; see [Action object][actionobject] above).
+
+Also, if the game creator chooses, certain variables can be shown to the user (for example, to show the state of certain collectibles that they might have). When a state variable is shown in some sort of representation to the user, it is called a Collectible. For more, see [Collectible object][collectibleobject] above.
 
 ### Example
 
@@ -210,13 +237,15 @@ An example can be seen in the [sergis-client repository](https://github.com/serg
 
 
 
-[conditionobject]:  json.html#condition-object  "SerGIS JSON Condition Object"
-[actionobject]:  json.html#action-object  "SerGIS JSON Action Object"
-[contentobject]: json.html#content-object "SerGIS JSON Content Object"
-[promptobject]:  json.html#prompt-object  "SerGIS JSON Prompt Object"
-[mapobject]:     json.html#map-object     "SerGIS JSON Map Object"
+[actionobject]:      json.html#action-object      "SerGIS JSON Action Object"
+[conditionobject]:   json.html#condition-object   "SerGIS JSON Condition Object"
+[collectibleobject]: json.html#collectible-object "SerGIS JSON Collectible Object"
+[contentobject]:     json.html#content-object     "SerGIS JSON Content Object"
+[mapobject]:         json.html#map-object         "SerGIS JSON Map Object"
+[promptobject]:      json.html#prompt-object      "SerGIS JSON Prompt Object"
 
 [sergis-json-game-data]: json.html#sergis-json-game-data "SerGIS JSON Game Data"
+[state-variables]:       json.html#state-variables       "SerGIS JSON State Variables"
 
 [frontends]: client.html#frontends "SerGIS Client Frontends"
 [backends]:  client.html#backends  "SerGIS Client Backends"
