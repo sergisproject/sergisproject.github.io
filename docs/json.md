@@ -70,12 +70,12 @@ A SerGIS JSON Action Object is an object representing either a "Map Action" (an 
 | Action Name | Data Array Description | Description
 | ----------- | ---------------------- | -----------
 | `explain` | [[`Content`][contentobject], [`Content`][contentobject], ...] | Show an explanation for why the choice that the user chose was correct or incorrect. The data is an array of [Content objects][contentobject] holding the explanation to display; in most cases, it will be an array of only one [Content object][contentobject]. If this is provided before any Map Actions, it will be shown to the user before those Map Actions are rendered.
-| `goto` | [`number|object`] | Go to a specific prompt. **If combined with Map Actions, it must be the *last* action!**
+| `endGame` | [] | End the game immediately. **Cannot be combined with any other actions!**
+| *`goto`* * | [`number|object`] | Go to a specific prompt. **If combined with Map Actions, it must be the *last* action!**
 | | | - Simple `goto`: `data`'s only item is a number indicating which prompt index to go to.
 | | | - Conditional `goto`: `data`'s only item is an object whose keys are different prompt indexes and whose values are [Condition objects][conditionobject] representing a condition that must be true to go to that prompt index.
-| `logout` | (none) | Log the user out. **Cannot be combined with Map Actions!**
-| `setVariable` | [`string`, `number`] | Set a numeric variable. The first item in the data array is the name of the variable, and the second is its value.
-| `updateVariable` | [`string`, `number`] | Increment or decrement a numeric variable. The first item in the data array is the name of the variable, and the second is the amount to add (can be negative to subtract). If the variable wasn't previously set, it is assumed to be `0`.
+
+\* Conditional `goto` actions are preprocessed by the SerGIS client backend before they reach the main SerGIS client. For more on this, see the `game.getActions` function in the [SerGIS client backends][backends] documentation.
 
 **Map Actions:**
 
@@ -193,8 +193,16 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
     | -------- | ---- | -----
     | `actions` (optional) | array<[Action][actionobject]> | An array of SerGIS Action objects representing the actions to be taken if this choice is selected. (Actions are evaluated in the order that they appear in this array.) After these actions are taken, or if no actions are provided (i.e. `actions` is an empty array), the game will advance to the next prompt automatically (unless otherwise instructed).
     | `pointValue` (optional) | number | The amount of points that the user should have added to his score for choosing this choice. If not provided, defaults to `0`.
+    | `setVariables` (optional) | object<string, number> | Any numeric state variables to set. Each string key is the name of a variable, and the corresponding numeric value is the new value of the variable. For more on variables, see below.
+    | `updateVariables` (optional) | object<string, number> | Any numeric state variables to update (i.e. increment or decrement). Each string key is the name of a variable, and the corresponding numeric value is the amount to add to the variable (can be negative to decrement a variable). For more on state variables, see below.
     
-    NOTE: If neither of these properties are specified, `actionList` should still contain **an empty object** (`{}`) filling the position.
+    NOTE: Even if none of these properties are needed, `actionList` should still contain **an empty object** (`{}`) filling the position.
+
+### State Variables
+
+SerGIS includes a simple way of giving a user a score via the `pointValue`s that can be set for each action (which are then added up at the end to give the user his or her final score), but sometimes something more powerful is needed. State variables fill this place. They are numeric variables that persist with the user's session as the user plays the game.
+
+When a user makes a choice, state variables can be set, incremented, or decremented as a result of that choice (see `setVariables` and `updateVariables` in the table above this). Then, the values of these variables can be used later in [conditional gotos][actionobject] (which allow the next prompt to be chosen conditionally; see [Action object][actionobject] above). Also, if the game creator chooses, certain variables can be shown to the user (for example, to show the state of certain collectibles that they might have). (TODO: Last bit not yet implemented...)
 
 ### Example
 
