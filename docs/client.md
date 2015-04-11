@@ -50,18 +50,17 @@ This object must have the following properties:
 | Property | Type   | Value
 | -------- | ------ | -----
 | `name`   | string | The name of the frontend (usually matches the frontend filename without `.js` on the end).
+| `actions` | object | The actions that the frontend can do to the map.  It must have a function for each Map Action that could be present in an Map [Action object][actionobject] (not including Gameplay Actions such as `explain`, `goto`, and `logout`). The function name corresponds to the action's `name`, and the function's parameters correspond to data passed in the action's `data` array.
 
 This object must also have the following functions:
 
 | Function Name | Arguments | Return Value | Description
 | ------------- | --------- | ------------ | -----------
-| `init` | *`mapContainer` (DOM element),* *`map` ([Map][mapobject])* | Promise&lt;array&gt; | Initialize the map within the DOM element mapContainer, centering it based on the [SerGIS Map object][mapobject] provided. If successful, the Promise should be resolved to an array representing toolbar buttons to show in the toolbox at the top. Each button is represented by a n object with a `label` property (which is a [SerGIS Content object][contentobject]) and an optional `tooltip` property (a string).
+| `init` | *`mapContainer` (DOM element),* *`map` ([Map][mapobject])* | Promise&lt;array&gt; | Initialize the map within the DOM element mapContainer, centering it based on the [SerGIS Map object][mapobject] provided. If successful, the Promise should be resolved to an array representing toolbar buttons to show in the toolbar at the top. Each button is represented by an object with an `id` property (this must be unique to the frontend), a `label` property (which is a [SerGIS Content object][contentobject]), and an optional `tooltip` property (a string).
 | `reinit` (optional) | *`mapContainer` (DOM element),* *`map` ([Map][mapobject])* | Promise | Re-initialize the map within the DOM element mapContainer, centering it based on the [SerGIS Map object][mapobject] provided. If not provided, then `init` is called if the map has to be re-initialized.
 | `centerMap` | *`map` ([Map][mapobject]),* | Promise | Center the map on the given coordinates (provided as numbers) and zoom to the given zoom value (an integer).
-| `mapContainerResized` | none | Promise | Resize the map to fit the size of its container. This is called after the size of the map container is changed for any reason, including window resizing.
-| `toolbarAction` | *`buttonIndex` (number)* | Promise | Execute the toolbar action for the toolbar button at buttonIndex. (Only ever called if `init` included at least one item in the array that its promise was resolved to. The buttonIndex refers to the index of the toolbar button in this array.)
-
-This object must also have a property named `actions`, which is an object with the actions that can be taken on the map. It must have a function for each Map Action that could be present in an Map [Action object][actionobject] (not including Gameplay Actions such as `explain`, `goto`, and `logout`). The function name corresponds to the action's `name`, and the function's parameters correspond to data passed in the action's `data` array.
+| `mapContainerResized` (optional) | none | Promise | Resize the map to fit the size of its container. This is called after the size of the map container is changed for any reason, including window resizing.
+| `toolbarButtonAction` | *`buttonID` (string)* | Promise | Execute the toolbar action for the toolbar button identified by buttonID. (Only ever called if `init` included at least one item in the array that its promise was resolved to.)
 
 ## Backends
 
