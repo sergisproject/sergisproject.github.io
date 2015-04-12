@@ -95,14 +95,21 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
   | `getPreviousMapActions` | none | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get a list of all the previous Map Actions (in order, with the most recent last) that the user has chosen up to this point. (This is used if the SerGIS UI has to re-draw the actions on the map, e.g. if the user is restarting the session or if the user is going back to a previous prompt.) This array must NEVER include Gameplay Actions (such as `explain`). If the backend uses [SerGIS JSON Game Data][sergis-json-game-data], then this should respect `showActionsInUserOrder`. Also, this should NEVER return actions previously chosen by the user for the current prompt.
   | `getPromptCount` | none | Promise&lt;number&gt; | Get the total number of prompts.
   | `getPrompt` | *`promptIndex` (number)* | Promise&lt;[Prompt][promptobject]&gt; | Go to a prompt index and returns the Prompt object representing the question or information. (Make sure to check on the server if the user has permission to go to this prompt; even if `jumpingBackAllowed` and/or `jumpingForwardAllowed` aren't true, anything on the client side of things can be manipulated.) Also, this function should save the current state on the server (i.e. which prompt the user is on) so the user can resume where he or she left off, and, if the backend uses [SerGIS JSON Game Data][sergis-json-game-data], this should respect `onBackwardJump`.
-  | `getActions` | *`promptIndex` (number),* *`choiceIndex` (number)* | Promise&lt;array&lt;[Action][actionobject]&gt;&gt; | Get the action(s) for a specific choice (choiceIndex) of a prompt (promptIndex). The server should store the user's response so it can be retrieved later using `getPreviousMapActions()`. *NOTE: This function CANNOT just pass the actions directly from the JSON data; certain Gameplay Actions must be preprocessed. For more, see Action Preprocessing below.*
   | `getGameOverContent` | none | Promise&lt;array&lt;[Content][contentobject]&gt;&gt; | Get the content to display to the user after he or she has answered the last prompt.
+  | `pickChoice` | *`promptIndex` (number),* *`choiceIndex` (number)* | Promise&lt;ChoiceResults&gt; | Tell the backend that the user chose a certain choice (choiceIndex) for the prompt that they are on (promptIndex). The server should store the user's response so it can be retrieved later using `getPreviousMapActions()`.
+  
+  > In the `pickChoice` function, `ChoiceResults` is an object representing the consequences of a choice, including actions and the index of the next prompt. It has the following properties:
+  > 
+  > | Property | Type | Value
+  > | -------- | ---- | -----
+  > | `nextPromptIndex` | number\|string | The next prompt index to go to (if not provided, defaults to the current promptIndex + 1). To end the game, this should be set to a value of "end".
+  > | `actions` | array&lt;[Action][actionobject]&gt; | The actions that are a result of this choice. *NOTE: This function CANNOT just pass the actions directly from the JSON data; certain Gameplay Actions must be preprocessed. For more, see Action Preprocessing below.*
 
 ### Action Preprocessing
 
-If you wish to support the deprecated `goto` action in your backend (see [Action Object][actionobject]), the backend must do a bit of preprocessing. When the client calls the `game.getActions` function on the backend, the backend must remove any `goto` actions from the list of [Action objects][actionobject] (from whatever [JSON Game Data][sergis-json-game-data] the backend uses as a source) before returning it. The backend should then store the value of the  removed `goto` action to use for the next time when `nextPrompt` is called.
+If you wish to support the deprecated `goto` or `endGame` actions in your backend (see [Action Object][actionobject]), the backend must do a bit of preprocessing. When the client calls the `game.pickChoice` function on the backend, the backend must remove any `goto` and `endGame` actions from the list of [Action objects][actionobject] (from whatever [JSON Game Data][sergis-json-game-data] the backend uses as a source) before returning it. The backend should then put the value of the `goto` action into the `nextPromptIndex` slot in the Choice object (or, if an `endGame` action was used, it should set nextPromptIndex to "end").
 
-Any other actions, including other Gameplay Actions or any Map Actions, can be passed to the client as-is, and the client will process them.
+Any other actions, including other Gameplay Actions (e.g. `explain`) or any Map Actions, can be passed to the client as-is, and the client will process them.
 
 
 [actionobject]:      json.html#action-object      "SerGIS JSON Action Object"

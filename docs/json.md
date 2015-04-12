@@ -54,10 +54,10 @@ A SerGIS JSON Action Object is an object representing either a "Map Action" (an 
 | Action Name | Data Array Description | Description
 | ----------- | ---------------------- | -----------
 | `explain` | [[`Content`][contentobject], [`Content`][contentobject], ...] | Show an explanation for why the choice that the user chose was correct or incorrect. The data is an array of [Content objects][contentobject] holding the explanation to display; in most cases, it will be an array of only one [Content object][contentobject]. If this is provided before any Map Actions, it will be shown to the user before those Map Actions are rendered.
-| `endGame` | [] | End the game immediately. **Cannot be combined with any other actions!**
+| *`endGame`* (DEPRECATED*) | [] | End the game immediately. **Cannot be combined with any other actions!**
 | *`goto`* (DEPRECATED*) | [`number`] | Go to a specific prompt. **If combined with Map Actions, it must be the *last* action!**
 
-\* The `goto` action is deprecated, and should not be used. Instead, authors should use the `nextPrompt` property in the `actionList` (see near bottom of this page). This action is not implemented by the SerGIS client, but rather by the SerGIS backend (see [Action Preprocessing][action-preprocessing] for more).
+\* The `endGame` and `goto` actions are deprecated, and should not be used. Instead, authors should use the `nextPrompt` property in the `actionList` (see near bottom of this page). These deprecated actions are not implemented by the SerGIS client, but rather by the SerGIS backend (see [Action Preprocessing][action-preprocessing] for more).
 
 **Map Actions:**
 
