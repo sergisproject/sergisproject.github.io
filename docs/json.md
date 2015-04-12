@@ -55,11 +55,9 @@ A SerGIS JSON Action Object is an object representing either a "Map Action" (an 
 | ----------- | ---------------------- | -----------
 | `explain` | [[`Content`][contentobject], [`Content`][contentobject], ...] | Show an explanation for why the choice that the user chose was correct or incorrect. The data is an array of [Content objects][contentobject] holding the explanation to display; in most cases, it will be an array of only one [Content object][contentobject]. If this is provided before any Map Actions, it will be shown to the user before those Map Actions are rendered.
 | `endGame` | [] | End the game immediately. **Cannot be combined with any other actions!**
-| *`goto`* * | [`number|object`] | Go to a specific prompt. **If combined with Map Actions, it must be the *last* action!**
-| | | - Simple `goto`: `data`'s only item is a number indicating which prompt index to go to.
-| | | - Conditional `goto`: `data`'s only item is an object whose keys are different prompt indexes and whose values are [Condition objects][conditionobject] representing a condition that must be true to go to that prompt index.
+| *`goto`* (DEPRECATED*) | [`number`] | Go to a specific prompt. **If combined with Map Actions, it must be the *last* action!**
 
-\* Conditional `goto` actions are preprocessed by the SerGIS client backend before they reach the main SerGIS client. For more on this, see the `game.getActions` function in the [SerGIS client backends][backends] documentation.
+\* The `goto` action is deprecated, and should not be used. Instead, authors should use the `nextPrompt` property in the `actionList` (see near bottom of this page). This action is not implemented by the SerGIS client, but rather by the SerGIS backend (see [Action Preprocessing][action-preprocessing] for more).
 
 **Map Actions:**
 
@@ -107,11 +105,11 @@ There are 2 ways of showing collectibles:
 
 ### Condition Object
 
-A SerGIS JSON Condition Object is an object representing a condition that can be resolved to `true` or `false`. It is used in conditional gotos (see [Action Object][actionobject]).
+A SerGIS JSON Condition Object is an object representing a condition that can be resolved to `true` or `false`. It is used in the conditional version of `nextPrompt` (see near the bottom of this page).
 
 | Property | Type   | Value
 | -------- | ----   | -----
-| `type`   | string | One of the following: `and`, `or`, `varEmpty`, `varEqualTo`, `varGreaterThan`, `varLessThan`
+| `type`   | string | One of the following: `and`, `or`, `varEmpty`, `varEqualTo`, `varGreaterThan`, `varLessThan`, `true`, `false`
 | `data`   | (varies) | Data that goes along with the condition type.
 
 The following conditions are supported:
@@ -124,6 +122,8 @@ The following conditions are supported:
 | `varEqualTo` | The specified variable is equal to the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
 | `varGreaterThan` | The specified variable is greater than the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
 | `varLessThan` | The specified variable is less than the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
+| `true` | Always resolves to true. | (none) | (data not required)
+| `false` | Never resolves to true. | (none) | (data not required)
 
 ### Content Object
 
@@ -218,16 +218,22 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
     | -------- | ---- | -----
     | `actions` (optional) | array<[Action][actionobject]> | An array of SerGIS Action objects representing the actions to be taken if this choice is selected. (Actions are evaluated in the order that they appear in this array.) After these actions are taken, or if no actions are provided (i.e. `actions` is an empty array), the game will advance to the next prompt automatically (unless otherwise instructed).
     | `pointValue` (optional) | number | The amount of points that the user should have added to his score for choosing this choice. If not provided, defaults to `0`.
+    | `nextPrompt` (optional) | number\|object | Go to a specific prompt after the user chooses this choice. If not provided, defaults to the next prompt (`promptIndex + 1`). See **`nextPrompt` format** below.
     | `setVariables` (optional) | object<string, number> | Any numeric state variables to set. Each string key is the name of a variable, and the corresponding numeric value is the new value of the variable. For more on variables, see below.
-    | `updateVariables` (optional) | object<string, number> | Any numeric state variables to update (i.e. increment or decrement). Each string key is the name of a variable, and the corresponding numeric value is the amount to add to the variable (can be negative to decrement a variable). For more on state variables, see below.
+    | `adjustVariables` (optional) | object<string, number> | Any numeric state variables to adjust (i.e. increment or decrement). Each string key is the name of a variable, and the corresponding numeric value is the amount to add to the variable (can be negative to decrement a variable). For more on state variables, see below.
     
-    NOTE: Even if none of these properties are needed, `actionList` should still contain **an empty object** (`{}`) filling the position.
+    **`nextPrompt` format**:
+    - **Simple "go to":** If it's a `number`, it represents the next prompt index to go to.
+    - **Conditional "go to":** If it's an `object`, each key is either a prompt index or the string "end", and each corresponding value is a [Condition object][conditionobject] representing a condition that must be true to go to that prompt index (or end the game if "end" is used instead of a prompt index).
+    - To end the game without specifying a condition, use something like: `"nextPrompt": {"end": {"type": "true"}}`
+    
+    ***NOTE:*** Even if none of these properties are needed, `actionList` should still contain **an empty object** (`{}`) filling the position.
 
 ### State Variables
 
 SerGIS includes a simple way of giving a user a score via the `pointValue`s that can be set for each action (which are then added up at the end to give the user his or her final score), but sometimes something more powerful is needed. State variables fill this place. They are numeric variables that persist with the user's session as the user plays the game.
 
-When a user makes a choice, state variables can be set, incremented, or decremented as a result of that choice (see `setVariables` and `updateVariables` in the table above this). Then, the values of these variables can be used later in [conditional gotos][actionobject] (which allow the next prompt to be chosen conditionally; see [Action object][actionobject] above).
+When a user makes a choice, state variables can be set, incremented, or decremented as a result of that choice (see `setVariables` and `adjustVariables` in the table above this). Then, the values of these variables can be used later in the conditional version of `nextPrompt` (which allow the next prompt to be chosen conditionally; see the section above this one).
 
 Also, if the game creator chooses, certain variables can be shown to the user (for example, to show the state of certain collectibles that they might have). When a state variable is shown in some sort of representation to the user, it is called a Collectible. For more, see [Collectible object][collectibleobject] above.
 
@@ -249,3 +255,4 @@ An example can be seen in the [sergis-client repository](https://github.com/serg
 
 [frontends]: client.html#frontends "SerGIS Client Frontends"
 [backends]:  client.html#backends  "SerGIS Client Backends"
+[action-preprocessing]: client.html#action-preprocessing "SerGIS Client Backend Action Preprocessing"
