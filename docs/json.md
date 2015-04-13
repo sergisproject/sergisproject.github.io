@@ -223,6 +223,7 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
     | `adjustVariables` (optional) | object<string, number> | Any numeric state variables to adjust (i.e. increment or decrement). Each string key is the name of a variable, and the corresponding numeric value is the amount to add to the variable (can be negative to decrement a variable). For more on state variables, see below.
     
     **`nextPrompt` format**:
+    
     - **Simple "go to":** If it's a `number`, it represents the next prompt index to go to.
     - **Conditional "go to":** If it's an `object`, each key is either a prompt index or the string "end", and each corresponding value is a [Condition object][conditionobject] representing a condition that must be true to go to that prompt index (or end the game if "end" is used instead of a prompt index).
     - To end the game without specifying a condition, use something like: `"nextPrompt": {"end": {"type": "true"}}`
