@@ -119,9 +119,9 @@ The following conditions are supported:
 | `and` | All of its children resolve to true. | array&lt;[Condition][conditionobject]&gt; | One or more other Conditions.
 | `or` | At least one of its children resolves to true. | array&lt;[Condition][conditionobject]&gt; | One or more other Conditions.
 | `varEmpty` | The specified variable is unset or equal to `0`. | string | The name of the variable to check.
-| `varEqualTo` | The specified variable is equal to the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
-| `varGreaterThan` | The specified variable is greater than the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
-| `varLessThan` | The specified variable is less than the specified value. | array `[string, number]` | The name of the variable to check and the value to compare it to.
+| `varEqualTo` | The specified variable is equal to either a specified value or another variable. | array `[string, number|string]` | The name of the variable to check, and the value to compare it to (either a number or another variable name).
+| `varGreaterThan` | The specified variable is greater than either a specified value or another variable. | array `[string, number|string]` | The name of the variable to check, and the value to compare it to (either a number or another variable name).
+| `varLessThan` | The specified variable is less than either a specified value or another variable. | array `[string, number|string]` | The name of the variable to check, and the value to compare it to (either a number or another variable name).
 | `true` | Always resolves to true. | (none) | (data not required)
 | `false` | Never resolves to true. | (none) | (data not required)
 
