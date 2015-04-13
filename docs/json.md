@@ -226,7 +226,7 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
     
     - **Simple "go to":** If it's a `number`, it represents the next prompt index to go to.
     - **Conditional "go to":** If it's an `object`, each key is either a prompt index or the string "end", and each corresponding value is a [Condition object][conditionobject] representing a condition that must be true to go to that prompt index (or end the game if "end" is used instead of a prompt index).
-    - To end the game without specifying a condition, use something like: `"nextPrompt": {"end": {"type": "true"}}`
+    - **End Game:** `nextPrompt` can be equal to the string "end" to instantly end the game.
     
     ***NOTE:*** Even if none of these properties are needed, `actionList` should still contain **an empty object** (`{}`) filling the position.
 
