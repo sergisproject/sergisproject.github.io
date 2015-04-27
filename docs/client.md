@@ -86,6 +86,7 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
   > | `promptIndex` (optional) | number | Which prompt the user is on (in the case of a previously started session). If not provided, it is assumed to be the first prompt (`0`).
   > | `jumpingBackAllowed` (optional) | boolean | Whether the user is allowed to go back to previously answered prompts. See `jumpingBackAllowed` in the [SerGIS JSON Game Data][sergis-json-game-data] reference.
   > | `jumpingForwardAllowed` (optional) | boolean | Whether the user is allowed to skip prompts and come back to them later. See `jumpingForwardAllowed` in the [SerGIS JSON Game Data][sergis-json-game-data] reference.
+  > | `alwaysReinitializeMap` (optional) | boolean | Whether to reload the map frontend between each prompt. See `alwaysReinitializeMap` in the [SerGIS JSON Game Data][sergis-json-game-data] reference.
   > | `layout` (optional) | object | Configuration regarding the layout of the game. See `layout` in the [SerGIS JSON Game Data][sergis-json-game-data] reference.
 
 - `game` must have the following functions (NOTE: none of these will be called until a user is logged in):

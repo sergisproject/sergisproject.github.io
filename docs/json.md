@@ -148,6 +148,14 @@ A SerGIS JSON Map Object is an object representing a map state, including locati
 | `longitude` | number | The longitude position (negative values are west, positive are east).
 | `zoom` | number | The zoom level of the map.
 | `frontendInfo` | object | An object with frontend-specific map information, where each key is the name of a [frontends][frontends] (corresponding to the frontend's name property) and the value is an object with specific information for that frontend. To find out the values for each frontend, look at the top of the frontend's file for a comment block starting with "SerGIS JSON Map Object - frontendInfo for [frontend name]".
+| `reinitialize` | string | Whether to force reinitialization of the map. Possible values are: "before" (reinitialize the map before showing this prompt), "after" (reinitialize the map after showing this prompt), "both" (reinitialize the map before and after showing this prompt), or any other value (don't reinitialize the map unless otherwise necessary).
+
+The map frontend is reinitialized before the prompt is shown if any of these are true:
+
+- `reinitialize` is set to "before" or "both"
+- `reinitialize` on the previous prompt was set to "after" or "both"
+- The user jumped around (see [SerGIS JSON Game Data][sergis-json-game-data])
+- `alwaysReinitializeMap` is set to `true` (see [SerGIS JSON Game Data][sergis-json-game-data])
 
 ### Prompt Object
 
