@@ -198,10 +198,12 @@ SerGIS JSON Game Data is a JSON file with a specific structure. The JSON data co
 
   | Property | Type | Value
   | -------- | ---- | -----
-  | `defaultSidebarWidthRatio` | number | A number between 0 and 1 indicating the default % of the horizontal screen real estate that should be taken up by the prompt sidebar. Default: ???
+  | `defaultSidebarWidthRatio` | number | A number between 0 and 1 indicating the default % of the horizontal screen real estate that should be taken up by the prompt sidebar. Default: 0.3
   | `disableSidebarResizing` | boolean | Whether horizontal resizing of the prompt sidebar should be disabled. Default: `false`
   | `disableTranslucentSidebar` | boolean | Whether the translucent prompt sidebar, with the map behind it, should be opaque instead, with the map only extending to its border and not behind it. Default: `false`
+  | `defaultPopupMaxWidthRatio` | number | A number between 0 and 1 indicating the default % of the map's width that is allowed to be taken up by the popup. Default: 0.5
   | `showPromptNumber` | boolean | Whether to show "Prompt __ of __" at the bottom of the prompt sidebar. (If any kind of jumping around is enabled, then this is always shown regardless of this setting.) Default: `false`
+  | `hidePromptTitle` | boolean | Whether to hide the prompt title at the top of the prompt sidebar. Default: `false`
 
 - Each object in the `promptList` array has the following properties:
 
