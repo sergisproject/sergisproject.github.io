@@ -17,21 +17,26 @@ In the SerGIS Prompt Author, a backend is a JavaScript library that handles user
 
 Each function in the backend must return a [JavaScript Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
+Some of these functions use a "JSON path". This is a simple dot-separated notation for specifying a point within a game's JSON data (it is not exactly JavaScript's object-property notation). Example: For the 5th prompt index's map, the path would be: `promptList.5.prompt.map`
+
 Each backend is a JavaScript object. It must be assigned to a JavaScript variable `AUTHOR.BACKEND`. This object must have the following functions:
 
 | Function Name | Arguments | Return Value | Description
 | ------------- | --------- | ------------ | -----------
 | `init` | *`onPromptLock` (function),* *`onGameUpdate` (function)* | Promise | Initialize the backend (only called once, after the page is loaded). The `onPromptLock` and `onGameUpdate` are functions that should be called when a prompt in the last-loaded game is locked by a different user (`onPromptLock`) or when a different user updates the game data (`onGameUpdate`). For more on what should be passed to these functions, see "Multiple Users" below.
+| `getUserList` (optional) | none | Promise&lt;Object&lt;string, string&gt;&gt; | Get a list of all the users that a user can share with (the user will also be able to enter a username). See "Multiple Users" below.
 | `getGameList` | none | Promise&lt;Object&lt;string, Object&gt;&gt; | Get a list of all the user's games, returned in an object where each key is the game name and the corresponding value is an AuthorGame object (see below).
 | `renameGame` | *`gameName` (string),* *`newGameName` (string)* | Promise | Rename a game from an old name to a new name. Must reject the promise if any user has the game open.
-| `shareGame` (optional) | *`gameName` (string),* *`username` (string)* | Promise | Share one of the user's games with a different user.
-| `unshareGame` (optional) | *`gameName` (string),* *`username` (string)* | Promise | Remove a user from the list of users that a game is shared with.
+| `shareGame` (optional) | *`gameName` (string),* *`username` (string)* | Promise | Share one of the user's games with a different user. See "Multiple Users" below.
+| `unshareGame` (optional) | *`gameName` (string),* *`username` (string)* | Promise | Remove a user from the list of users that a game is shared with. See "Multiple Users" below.
 | `removeGame` | *`gameName` (string)* | Promise | Remove a specific game, identified by its name. Must reject the promise if any user has the game open.
 | `checkGameName` | *`gameName` (string)* | Promise&lt;number&gt; | Check whether a certain game name is valid for a new game. This should return `0` if the game name is already taken, `-1` if the game name is invalid, or `1` if the game name is all good and dandy.
-| `loadGame` | *`gameName` (string)* | Promise&lt;Object&gt; | Get the JSON data for a specific game, identified by its name. If the game name refers to a game that does not yet exist, it must be created. The backend must store this game as the "current" game for when functions such as `saveCurrentGame` are called.
-| `saveCurrentGame` | *`jsondata` (Object),* *`path` (string)* | Promise | Save new JSON data for the current game. If `path` is defined, then it is a dot-separated path to the part of the JSON that should be updated (for example, if `path` is `"promptList.5.prompt"`, then `jsondata` should be assigned to `promptList[5].prompt`.
+| `loadGame` | *`gameName` (string),* *`owner` (string)* | Promise&lt;Object&gt; | Get the JSON data for a specific game, identified by its name (and, if it's not our game, its owner). If the game name refers to a game that does not yet exist, it must be created. The backend must store this game as the "current" game for when functions such as `saveCurrentGame` are called.
+| `saveCurrentGame` | *`jsondata` (Object),* *`path` (string)* | Promise | Save new JSON data for the current game. If `path` is defined, then it is a dot-separated JSON path (see top of page) that should be updated (for example, if `path` is `"promptList.5.prompt"`, then `jsondata` should be assigned to `promptList[5].prompt`.
 | `previewCurrentGame` (optional) | none | Promise&lt;Object&gt; | Open up a preview of the current game.
 | `publishCurrentGame` (optional) | none | Promise&lt;Object&gt; | Publish the current game.
+| `lockPrompt` (optional) | *`promptIndex` (number)* | Promise | Lock a certain prompt for this user to edit. If another user has the prompt locked (i.e. is editing it), this promise must be rejected. See "Multiple Users" below.
+| `unlockPrompt` (optional) | *`promptIndex` (number)* | Promise | Unlock a certain prompt that this user currently has locked, allowing other users to edit it. See "Multiple Users" below.
 
 An AuthorGame object is an object with these properties:
 
@@ -53,4 +58,26 @@ The Promises returned by `previewGame` and `publishGame` are resolved with an ob
 
 ### Multiple Users
 
-The backend may optionally support multiple users working on the same game.
+The backend may optionally support multiple users working on the same game, or multiple instances of the same user working on the same game (this is still counted as "multiple users").
+
+To support multiple users, the backend should implement these things:
+
+1. **Locking:** Allows users to "lock" the prompt that they're currently editing.
+   Requires:
+   - `lockPrompt` function
+   - `unlockPrompt` function
+   - `init` function's `onPromptLock` and `onGameUpdate` parameters (see below)
+1. **Sharing:** Allows users to share games with other users.
+   Requires:
+   - Locking
+   - `getUserList` function (not necessary, but should be provided)
+   - `shareGame` function
+   - `unshareGame` function
+   - `loadGame` function's 2nd parameter (`owner`)
+   - AuthorGame's `owner`, `sharedWith`, and `allowSharing` properties
+
+**`init` function's parameters**
+
+`onPromptLock`: This is a function that must be called with an object representing which prompts are locked by which users. It must be passed an object whose keys are locked prompt indexes and whose values are a string representing the display name of the user who has the prompt locked.
+
+`onGameUpdate`: This is a function that must be called whenever another user updates the current game's JSON data. It is called with 2 parameters: `jsondata` (the new JSON game data, or a section of it), and `path` (an optional JSON path to where the `jsondata` should go; see JSON paths at the top of this page).
