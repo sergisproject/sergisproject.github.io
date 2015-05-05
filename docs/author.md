@@ -24,14 +24,14 @@ Each backend is a JavaScript object. It must be assigned to a JavaScript variabl
 | Function Name | Arguments | Return Value | Description
 | ------------- | --------- | ------------ | -----------
 | `init` | *`onPromptLock` (function),* *`onGameUpdate` (function)* | Promise | Initialize the backend (only called once, after the page is loaded). The `onPromptLock` and `onGameUpdate` are functions that should be called when a prompt in the last-loaded game is locked by a different user (`onPromptLock`) or when a different user updates the game data (`onGameUpdate`). For more on what should be passed to these functions, see "Multiple Users" below.
-| `getUserList` (optional) | none | Promise&lt;Object&lt;string, string&gt;&gt; | Get a list of all the users that a user can share with (the user will also be able to enter a username). See "Multiple Users" below.
+| `getUserList` (optional) | none | Promise&lt;Object&lt;string, string&gt;&gt; | Get a list of all the users that a user can share with (the user will also be able to enter a username). This should be an object where the keys are usernames and the values are display names. See "Multiple Users" below.
 | `getGameList` | none | Promise&lt;Object&lt;string, Object&gt;&gt; | Get a list of all the user's games, returned in an object where each key is the game name and the corresponding value is an AuthorGame object (see below).
 | `renameGame` | *`gameName` (string),* *`newGameName` (string)* | Promise | Rename a game from an old name to a new name. Must reject the promise if any user has the game open.
 | `shareGame` (optional) | *`gameName` (string),* *`username` (string)* | Promise | Share one of the user's games with a different user. See "Multiple Users" below.
 | `unshareGame` (optional) | *`gameName` (string),* *`username` (string)* | Promise | Remove a user from the list of users that a game is shared with. See "Multiple Users" below.
 | `removeGame` | *`gameName` (string)* | Promise | Remove a specific game, identified by its name. Must reject the promise if any user has the game open.
 | `checkGameName` | *`gameName` (string)* | Promise&lt;number&gt; | Check whether a certain game name is valid for a new game. This should return `0` if the game name is already taken, `-1` if the game name is invalid, or `1` if the game name is all good and dandy.
-| `loadGame` | *`gameName` (string),* *`owner` (string)* | Promise&lt;Object&gt; | Get the JSON data for a specific game, identified by its name (and, if it's not our game, its owner). If the game name refers to a game that does not yet exist, it must be created. The backend must store this game as the "current" game for when functions such as `saveCurrentGame` are called.
+| `loadGame` | *`gameName` (string),* *`owner` (string)* | Promise&lt;Object&gt; | Get the JSON data for a specific game, identified by its name (and, if it's not our game, its owner). The return object has 2 properties: `jsondata` and `lockedPrompts` (see Multiple Users below). If the game name refers to a game that does not yet exist, it must be created. The backend must store this game as the "current" game for when functions such as `saveCurrentGame` are called.
 | `saveCurrentGame` | *`jsondata` (Object),* *`path` (string)* | Promise | Save new JSON data for the current game. If `path` is defined, then it is a dot-separated JSON path (see top of page) that should be updated (for example, if `path` is `"promptList.5.prompt"`, then `jsondata` should be assigned to `promptList[5].prompt`.
 | `previewCurrentGame` (optional) | none | Promise&lt;Object&gt; | Open up a preview of the current game.
 | `publishCurrentGame` (optional) | none | Promise&lt;Object&gt; | Publish the current game.
@@ -43,7 +43,7 @@ An AuthorGame object is an object with these properties:
 | Property Name | Type | Value
 | ------------- | ---- | -----
 | `lastModified` | *Date* | The date that the game was last modified.
-| `owner` (optional) | *string* | The owner of the game. If the owner is the logged-in user, then this property should be null or not provided.
+| `owner` (optional) | *string* | The owner of the game. If the owner is the logged-in user, then this property must be null or not provided.
 | `sharedWith` (optional) | *Object&lt;string, string&gt;* | Any other users with whom the game is shared. Each key in the object is a user's username, and each value is the user's display name. If the game is not owned by the logged-in user, then this property should be null or not provided.
 | `allowSharing` (optional) | *boolean* | Whether to allow the user to share the game with others. If the game is not owned by the logged-in user, then this property should be falsy. (Default: `false`)
 
@@ -67,6 +67,7 @@ To support multiple users, the backend should implement these things:
    - `lockPrompt` function
    - `unlockPrompt` function
    - `init` function's `onPromptLock` and `onGameUpdate` parameters (see below)
+   - `loadGame` function's `lockedPrompts` property in the return object
 1. **Sharing:** Allows users to share games with other users.
    Requires:
    - Locking
