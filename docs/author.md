@@ -32,6 +32,7 @@ Each backend is a JavaScript object. It must be assigned to a JavaScript variabl
 | `publishCurrentGame` (optional) | none | Promise&lt;[AuthorRequest](#sergis-author-request-object)&gt; | Publish the current game.
 | `lockCurrentPrompt` (optional) | *`promptIndex` (number)* | Promise | Lock a certain prompt for this user to edit. If another user has the prompt locked (i.e. is editing it), this promise must be rejected. See "Multiple Users" below.
 | `unlockCurrentPrompt` (optional) | *`promptIndex` (number)* | Promise | Unlock a certain prompt that this user currently has locked, allowing other users to edit it. See "Multiple Users" below.
+| `uploadFile` (optional) | *`imagefile` ([File](https://developer.mozilla.org/en-US/docs/Web/API/File))* | Promise&lt;string&gt; | Upload a file to the server and return a URL to the file. (If this is not provided, then files are stored in the JSON as data: URIs, which is very inefficient.)
 
 ### SerGIS Author Game Object (`AuthorGame`)
 
@@ -69,7 +70,7 @@ A SerGIS Author User Object is an object with the following properties:
 | `displayName` (optional) | *string* | The display name of the user.
 | `groupName` (optional) | *string* | The name of a group that this user is a part of. (Used to organize the user dropdown in the "Share Game" dialog.)
 
-### Multiple Users
+## Multiple Users
 
 The backend may optionally support multiple users working on the same game, or multiple instances of the same user working on the same game (this is still counted as "multiple users").
 
@@ -92,7 +93,7 @@ To support multiple users, the backend should implement these things:
 
 **`init` function's parameters**
 
-`onPromptLock`: This is a function that must be called with an object representing which prompts are locked by which users. It must be passed an object whose keys are locked prompt indexes and whose values are a string representing the display name of the user who has the prompt locked.
+`onPromptLock`: This is a function that must be called with an object representing which prompts are locked by which users. It must be passed an object whose keys are locked prompt indexes and whose values are a [AuthorUser][AuthorUser] representing the user who has the prompt locked.
 
 `onGameUpdate`: This is a function that must be called whenever another user updates the current game's JSON data. It is called with 2 parameters: `jsondata` (the new JSON game data, or a section of it), and `path` (an optional JSON path to where the `jsondata` should go; see JSON paths at the top of this page).
 
