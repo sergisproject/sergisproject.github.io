@@ -32,7 +32,7 @@ Each backend is a JavaScript object. It must be assigned to a JavaScript variabl
 | `publishCurrentGame` (optional) | none | Promise&lt;[AuthorRequest](#sergis-author-request-object)&gt; | Publish the current game.
 | `lockCurrentPrompt` (optional) | *`promptIndex` (number)* | Promise | Lock a certain prompt for this user to edit. If another user has the prompt locked (i.e. is editing it), this promise must be rejected. See "Multiple Users" below.
 | `unlockCurrentPrompt` (optional) | *`promptIndex` (number)* | Promise | Unlock a certain prompt that this user currently has locked, allowing other users to edit it. See "Multiple Users" below.
-| `uploadFile` (optional) | *`imagefile` ([File](https://developer.mozilla.org/en-US/docs/Web/API/File))* | Promise&lt;string&gt; | Upload a file to the server and return a URL to the file. (If this is not provided, then files are stored in the JSON as data: URIs, which is very inefficient.)
+| `uploadFile` (optional) | *`imagefile` ([File](https://developer.mozilla.org/en-US/docs/Web/API/File)\|[Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob))* | Promise&lt;string&gt; | Upload a file to the server and return a URL to the file. (If this is not provided, then all files are stored in the JSON as data: URIs, which is very inefficient.)
 
 ### SerGIS Author Game Object (`AuthorGame`)
 
