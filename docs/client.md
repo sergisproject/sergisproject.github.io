@@ -104,7 +104,7 @@ Each backend is a JavaScript object. It must be assigned to `sergis.backend`. Th
   > | Property | Type | Value
   > | -------- | ---- | -----
   > | `nextPromptIndex` | number\|string | The next prompt index to go to (if not provided, defaults to the current promptIndex + 1). To end the game, this should be set to a value of "end".
-  > | `actions` | array&lt;[Action][actionobject]&gt; | The actions that are a result of this choice. *NOTE: This function CANNOT just pass the actions directly from the JSON data; certain Gameplay Actions must be preprocessed. For more, see Action Preprocessing below.*
+  > | `actions` | array&lt;[Action][actionobject]&gt; | The actions that are a result of this choice. NOTE: This function CANNOT just pass the actions directly from the JSON data; certain Gameplay Actions must be preprocessed. For more, see Action Preprocessing below.
 
 ### Action Preprocessing
 
